@@ -34,7 +34,7 @@ variable "OSdisk_name" {
 }
 
 variable "public_key_path" {
-  default = "/Users/raja/.ssh/id_rsa.pub"
+  default = "/Users/raja/key/keys.pub"
 }
 
 
