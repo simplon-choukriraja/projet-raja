@@ -23,7 +23,7 @@ pipeline {
     
         stage('Run Terraform Commands') {
             steps {
-                dir('terraform') {
+                dir('projet-raja/terraform') {
                    script {
                         sh 'cd terraform/ && terraform init && terraform apply -auto-approve'
                     }
