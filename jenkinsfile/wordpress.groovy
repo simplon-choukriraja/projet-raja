@@ -18,23 +18,27 @@ pipeline {
                 
                 }
             }
-        }    
+        }
+
+        stage('Prepara Chiave SSH') {
+            steps {
+                script {
+            // Copia il file chiave SSH nella directory corretta
+                sh 'cp /Users/raja/.ssh/id_rsa.pub'
+        }
+    }
+}
         
     
         stage('Run Terraform Commands') {
             steps {
                 script {
-                    echo "Stampa la directory corrente"
-                    sh 'pwd'
-                    echo "Elenca i file e le directory"
-                    sh 'ls -la'
-
                     dir('terraform') {
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                     }
-                }
-            }
+                 }
+             }
         }
     }
 
