@@ -23,11 +23,13 @@ pipeline {
     
         stage('Run Terraform Commands') {
             steps {
-                script {
-                    sh 'cd terraform/ && terraform init && terraform apply -auto-approve'
+                dir('terraform') {
+                   script {
+                        sh 'cd terraform/ && terraform init && terraform apply -auto-approve'
                     }
                 }
             }
+        }
     }
 
     post {
