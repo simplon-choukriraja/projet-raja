@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
             // Copia il file chiave SSH nella directory corretta
-                sh 'cp /Users/raja/.ssh/id_rsa.pub' .
+                sh 'cp /Users/raja/.ssh/id_rsa.pub .' 
                 }
             }
         }
