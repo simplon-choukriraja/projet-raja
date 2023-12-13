@@ -23,9 +23,15 @@ pipeline {
     
         stage('Run Terraform Commands') {
             steps {
-                dir('projet-raja/terraform') {
-                   script {
-                        sh 'cd terraform/ && terraform init && terraform apply -auto-approve'
+                script {
+                    echo "Stampa la directory corrente"
+                    sh 'pwd'
+                    echo "Elenca i file e le directory"
+                    sh 'ls -la'
+
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
                     }
                 }
             }
