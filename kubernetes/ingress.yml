@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  namespace: wordpress
+  annotations:
+    ingressClassName: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: wordpress-auth@kubernetescrd
+    cert-manager.io/issuer: cert-manager
+spec:
+  tls: 
+    - hosts: 
+        - wordpress.raja-ch.me
+      secretName: tls-cert-ingress-http
+  rules:
+    - host: wordpress.raja-ch.me
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wordpress-service
+                port:
+                  number: 80

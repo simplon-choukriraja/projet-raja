@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: auth
+  namespace: wordpress
+spec:
+  basicAuth:
+    removeHeader: false
+    secret: authsecret
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authsecret
+  namespace: wordpress 
+data:
+  users: 
+    cmFqYTokYXByMSQ2ZzhBT1RtLyRUeGo2ZjhxMk96dFU0dlp4ZHNEZEMxCgo=
