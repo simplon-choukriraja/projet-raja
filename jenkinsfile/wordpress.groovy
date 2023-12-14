@@ -1,3 +1,4 @@
+
 pipeline {
     agent any 
 
@@ -37,14 +38,23 @@ pipeline {
                     dir('kubernetes') {
                       sh 'az login'
                       sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
-                      // AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES
+                    }
+                 }
+             }
+        }
+        
+        stage('Traefik avec Helm') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                      // AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES  
                       sh 'helm repo add traefik https://helm.traefik.io/traefik'
                       sh 'helm repo update'
                       // DÉPLOYER TRAEFIK AVEC HELM
                       sh 'helm install traefik traefik/traefik'
                     }
-                 }
-             }
+                }
+            }
         }
         
         stage('Deploy App Wordpress end MariaDB with k8s') {
