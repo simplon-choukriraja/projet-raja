@@ -61,36 +61,22 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                      //sh 'kubectl create -f namespace.yml'  
-                      //sh 'kubectl apply -f deployment-wp.yml' 
-                      //sh 'kubectl apply -f deployment-mysql.yml'
-                      //sh 'kubectl apply -f ingress.yml'
-                      //sh 'kubectl apply -f service-mysql.yml'
+                      sh 'kubectl create -f namespace.yml'  
+                      sh 'kubectl apply -f deployment-wp.yml' 
+                      sh 'kubectl apply -f deployment-mysql.yml'
+                      sh 'kubectl apply -f ingress.yml'
+                      sh 'kubectl apply -f service-mysql.yml'
                       //sh 'kubectl apply -f middleware.yml'
-                      //sh 'kubectl apply -f pvc.yml'
-                      //sh 'kubectl apply -f secret-wp.yml'
-                      //sh 'kubectl apply -f secret-mysql.yml'
-                      //sh 'kubectl apply -f service-wp.yml'
-                      //sh 'kubectl apply -f storageclass.yml'  
+                      sh 'kubectl apply -f pvc.yml'
+                      sh 'kubectl apply -f secret-wp.yml'
+                      sh 'kubectl apply -f secret-mysql.yml'
+                      sh 'kubectl apply -f service-wp.yml'
+                      sh 'kubectl apply -f storageclass.yml'  
                       //sh 'kubectl apply -f basicauth.yml'
                       //sh 'kubectl apply -f cert-manager.yml'
                           
                     }
                  }
-            }
-        }
-        stage('Generate Encoded Password') {
-            steps {
-                script {
-                    dir('kubernetes')
-                    // Sostituisci 'username' e 'yourpassword' con i valori desiderati
-                    def username = 'username'
-                    def password = 'yourpassword'
-
-                    def encodedPassword = sh(script: "htpasswd -nb ${raja} ${rajach8} | openssl base64", returnStdout: true).trim()
-                    echo "Encoded password: ${encodedPassword}"
-                    sh 'kubectl apply -f basicauth.yml'
-                }
             }
         }
      }
