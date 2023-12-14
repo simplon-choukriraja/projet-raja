@@ -9,13 +9,6 @@ pipeline {
         AZURE_CLIENT_SECRET = 'JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw'
     }
     
-    //post {
-    //   always {
-    // Nettoyage de l'espace de travail Jenkins
-    //        step([$class: 'WsCleanup'])
-    //  }
-    //}
-    
     stages{
         stage('Azure Login') {
             steps {
@@ -45,13 +38,11 @@ pipeline {
                 }
             }
         }
-        
-    }
-    post {
-       always {
-       Nettoyage de l'espace de travail Jenkins
+     }
+     post {
+        always {
+            // Nettoyage de l'espace de travail Jenkins
             step([$class: 'WsCleanup'])
-       }
+        }
     }
-
 }
