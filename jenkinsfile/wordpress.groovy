@@ -2,7 +2,6 @@ pipeline {
     agent any 
 
     environment {
-        SHEBANG = '#!/usr/bin/env -S bash -Eeuxo pipefail'
         AZURE_SUBSCRIPTION = 'a1f74e2d-ec58-4f9a-a112-088e3469febb'
         AZURE_TENANT_ID = 'a2e466aa-4f86-4545-b5b8-97da7c8febf3' 
         AZURE_CLIENT_ID = '7ac0b3c5-acf9-4398-afdf-8d77fe0aaaaa'
@@ -33,30 +32,21 @@ pipeline {
              }
         }
 
-        stage('Az get-credentials Kubernetes') {
+        stage('Add az get-credentials Kubernetes') {
             steps {
                 script {
-                    dir('terraform') {
+                    dir('kubernetes') {
                       sh sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
                     }
                  }
              }
         }
         
-        stage('Build Namespace.yml') {
-            steps {
-                script {
-                    dir('kubernetes') {
-                        sh 'kubectl create -f namespace.yml'
-                        
-                    }
-                 }
-             }
-        }
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
                 script {
                     dir('kubernetes') {
+                      sh 'kubectl create -f namespace.yml'  
                       ssh 'kubectl apply -f deployment.wp.yml' 
                       ssh 'kubectl apply -f deployment.mysql.yml'
                       ssh 'kubectl apply -f ingress.yml'
