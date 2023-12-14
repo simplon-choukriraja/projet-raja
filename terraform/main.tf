@@ -108,7 +108,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 resource "azurerm_network_security_group" "vm" {
   name                = var.NSG
   location            = var.location
-  resource_group_name = azurerm_resource_group.projet-raja.name
+  resource_group_name = azurerm_resource_group.projet.name
 
   security_rule {
     name                       = var.VM_rule
