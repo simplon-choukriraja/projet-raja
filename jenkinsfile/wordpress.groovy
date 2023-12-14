@@ -21,40 +21,40 @@ pipeline {
         }
 
         
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                    }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                    //}
+                 //}
+             //}
+        //}
 
-        stage('Add az get-credentials Kubernetes') {
-            steps {
-                script {
-                    dir('kubernetes') {
-                      sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
-                    }
-                 }
-             }
-        }
+        //stage('Add az get-credentials Kubernetes') {
+            //steps {
+                //script {
+                    //dir('kubernetes') {
+                      //sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
+                    //}
+                 //}
+             //}
+        //}
         
-        stage('Traefik avec Helm') {
-            steps {
-                script {
-                    dir('kubernetes') {
+        //stage('Traefik avec Helm') {
+            //steps {
+                //script {
+                    //dir('kubernetes') {
                       // AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES  
-                      sh 'helm repo add traefik https://helm.traefik.io/traefik'
-                      sh 'helm repo update'
+                      //sh 'helm repo add traefik https://helm.traefik.io/traefik'
+                      //sh 'helm repo update'
                       // DÉPLOYER TRAEFIK AVEC HELM
-                      sh 'helm install traefik traefik/traefik'
-                    }
-                }
-            }
-        }
+                      //sh 'helm install traefik traefik/traefik'
+                    //}
+                //}
+            //}
+        //}
         
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
