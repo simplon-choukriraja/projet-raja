@@ -45,7 +45,7 @@ pipeline {
         stage('Deploy App Wordpress end MariaDB with k8s') {
             stage {
                 script {
-                    dir('kubernetes' {
+                    dir('kubernetes') {
                       ssh 'kubectl apply -f deployment.wp.yml' 
                       ssh 'kubectl apply -f deployment.mysql.yml'
                       ssh 'kubectl apply -f ingress.yml'
