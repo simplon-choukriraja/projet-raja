@@ -37,7 +37,7 @@ pipeline {
                 script {
                     dir('kubernetes') {
                         //sh 'kubectl create -f namespace.yml'
-                        sh 'kubectl delete namespace.yml'
+                        sh 'kubectl delete -f namespace.yml'
                     }
                  }
              }
