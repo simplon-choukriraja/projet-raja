@@ -21,9 +21,9 @@ pipeline {
         }
 
         
-        stage('Run Terraform Commands') {
-            steps {
-                script {
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
                     //dir('terraform') {
                         //sh 'terraform init'
                         //sh 'terraform apply -auto-approve'
