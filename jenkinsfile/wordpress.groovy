@@ -42,7 +42,7 @@ pipeline {
                  //}
              //}
         //}
-        stage('Deploy App Wordpress end MariaDB with k8s')
+        stage('Deploy App Wordpress end MariaDB with k8s') {
             stage {
                 script {
                     dir('kubernetes' {
