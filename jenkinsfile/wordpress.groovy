@@ -43,7 +43,7 @@ pipeline {
              //}
         //}
         stage('Deploy App Wordpress end MariaDB with k8s') {
-            stage {
+            steps {
                 script {
                     dir('kubernetes') {
                       ssh 'kubectl apply -f deployment.wp.yml' 
@@ -58,8 +58,9 @@ pipeline {
                       ssh 'kubectl apply -f storageclass.yml'  
                       ssh 'kubectl apply -f basicauth.yml'
                       ssh 'kubectl apply -f cert-manager.yml'
+                          
                     }
-                }        
+                 }
             }
         }               
      }    
