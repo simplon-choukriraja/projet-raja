@@ -111,8 +111,8 @@ pipeline {
                     sh ('''
                     helm repo add grafana https://grafana.github.io/helm-charts
                     helm repo update
-                    helm upgrade --install promtail --namespace monitoring grafana/promtail
-                    helm upgrade --install loki --namespace monitoring grafana/loki-stack
+                    helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
+                    helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
                     ''')
                 }
             }
