@@ -57,20 +57,20 @@ pipeline {
             //}
         //}
         
-        stage('Deploy App Wordpress end MariaDB with k8s') {
-            steps {
-                script {
-                    dir('kubernetes') {
-                      sh 'kubectl create -f namespace.yml'  
-                      sh 'kubectl apply -f deployment-wp.yml' 
-                      sh 'kubectl apply -f deployment-mysql.yml'
-                      sh 'kubectl apply -f ingress.yml'
-                      sh 'kubectl apply -f service-mysql.yml'
+        //stage('Deploy App Wordpress end MariaDB with k8s') {
+            //steps {
+                //script {
+                    //dir('kubernetes') {
+                      //sh 'kubectl create -f namespace.yml'  
+                      //sh 'kubectl apply -f deployment-wp.yml' 
+                      //sh 'kubectl apply -f deployment-mysql.yml'
+                      //sh 'kubectl apply -f ingress.yml'
+                      //sh 'kubectl apply -f service-mysql.yml'
                       //sh 'kubectl apply -f middleware.yml'
-                      sh 'kubectl apply -f pvc.yml'
-                      sh 'kubectl apply -f secret-mysql.yml'
-                      sh 'kubectl apply -f service-wp.yml'
-                      sh 'kubectl apply -f storageclass.yml'  
+                      //sh 'kubectl apply -f pvc.yml'
+                      //sh 'kubectl apply -f secret-mysql.yml'
+                      //sh 'kubectl apply -f service-wp.yml'
+                      //sh 'kubectl apply -f storageclass.yml'  
                       //sh 'kubectl apply -f basicauth.yml'
                       //sh 'kubectl apply -f cert-manager.yml'
                           
@@ -78,7 +78,28 @@ pipeline {
                  }
             }
         }
-     }
+        //Installation de Prometheus et Grafana via Helm
+        stage ('Installation de Prometheus et Grafana via Helm') {
+            steps {
+                script {
+                    //Installation de Prometheus et Grafana via Helm
+                    sh ('''
+                    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+                    chmod 700 get_helm.sh
+                    ./get_helm.sh
+                    '''
+                    //Ajout du repository pour Prometheus et Grafana, et mise à jour
+                    sh ('''
+                    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+                    helm repo update
+                    ''')
+                    //Installation d'un Helm Chart dans un namespace monitoring
+                    sh ('''
+     }              helm install prometheus \
+                    prometheus-community/kube-prometheus-stack \
+                    --namespace projet-monitoring \
+                    --create-namespace  
+                    ''')
  
      post {
         always {
