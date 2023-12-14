@@ -104,7 +104,7 @@ pipeline {
                         //}
                 //}
         
-        stage ('Loki')
+        stage ('Loki') {
             steps {
                 script {
                     //Installation Loki
