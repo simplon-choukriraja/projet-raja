@@ -47,5 +47,11 @@ pipeline {
         }
         
     }
+    post {
+       always {
+       Nettoyage de l'espace de travail Jenkins
+            step([$class: 'WsCleanup'])
+       }
+    }
 
 }
