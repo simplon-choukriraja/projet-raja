@@ -1,6 +1,6 @@
 # creation resource groupe
 
-resource "azurerm_resource_group" "projet" {
+resource "azurerm_resource_group" "projet-rj" {
   name = var.resource_group_name
   location = var.location
 }
@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "projet" {
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = var.aks_cluster
   location            = var.location
-  resource_group_name = azurerm_resource_group.projet.name
+  resource_group_name = azurerm_resource_group.projet-rj.name
   dns_prefix          = var.aks_cluster
   
    
@@ -30,7 +30,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
 resource "azurerm_virtual_network" "vnet" {
   name                = var.vnet_j
-  resource_group_name = azurerm_resource_group.projet.name
+  resource_group_name = azurerm_resource_group.projet-rj.name
   location            = var.location
   address_space       = ["10.1.0.0/16"]
 }
@@ -39,7 +39,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_subnet" "subnet_vm" {
   name                 = var.subnet_j
-  resource_group_name  = azurerm_resource_group.projet.name
+  resource_group_name  = azurerm_resource_group.projet-rj.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.1.1.0/24"]
 }
@@ -49,7 +49,7 @@ resource "azurerm_subnet" "subnet_vm" {
 resource "azurerm_network_interface" "vm" {
   name                = var.vm-projet
   location            = var.location
-  resource_group_name = azurerm_resource_group.projet.name
+  resource_group_name = azurerm_resource_group.projet-rj.name
 
   ip_configuration {
     name                          = var.config_vm
@@ -65,7 +65,7 @@ resource "azurerm_network_interface" "vm" {
 resource "azurerm_public_ip" "ip-pub" {
   name                    = "pubip-rj"
   location                = var.location
-  resource_group_name     = azurerm_resource_group.projet.name
+  resource_group_name     = azurerm_resource_group.projet-rj.name
   allocation_method       = "Static"
   idle_timeout_in_minutes = 30
   
@@ -75,7 +75,7 @@ resource "azurerm_public_ip" "ip-pub" {
 
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = var.vm_jenkins
-  resource_group_name = azurerm_resource_group.projet.name
+  resource_group_name = azurerm_resource_group.projet-rj.name
   location            = var.location
   size                = "Standard_A1_v2"
   network_interface_ids = [azurerm_network_interface.vm.id]
@@ -108,7 +108,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 resource "azurerm_network_security_group" "vm" {
   name                = var.NSG
   location            = var.location
-  resource_group_name = azurerm_resource_group.projet.name
+  resource_group_name = azurerm_resource_group.projet-rj.name
 
   security_rule {
     name                       = var.VM_rule
