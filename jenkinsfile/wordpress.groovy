@@ -32,17 +32,37 @@ pipeline {
                  //}
              //}
         //}
-        stage('Build Namespace.yml') {
-            steps {
-                script {
-                    dir('kubernetes') {
+        //stage('Build Namespace.yml') {
+            //steps {
+                //script {
+                    //dir('kubernetes') {
                         //sh 'kubectl create -f namespace.yml'
-                        sh 'kubectl delete -f namespace.yml'
+                        
+                    //}
+                 //}
+             //}
+        //}
+        stage('Deploy App Wordpress end MariaDB with k8s')
+            stage {
+                script {
+                    dir('kubernetes' {
+                      ssh 'kubectl apply -f deployment.wp.yml' 
+                      ssh 'kubectl apply -f deployment.mysql.yml'
+                      ssh 'kubectl apply -f ingress.yml'
+                      ssh 'kubectl apply -f service-mysql.yml'
+                      ssh 'kubectl apply -f middleware.yml'
+                      ssh 'kubectl apply -f pv.yml'
+                      ssh 'kubectl apply -f secret-wp.yml'
+                      ssh 'kubectl apply -f secret-mysql.yml'
+                      ssh 'kubectl apply -f service-wp.yml'
+                      ssh 'kubectl apply -f storageclass.yml'  
+                      ssh 'kubectl apply -f basicauth.yml'
+                      ssh 'kubectl apply -f cert-manager.yml'
                     }
-                 }
-             }
-        }
-     }
+                }        
+            }
+        }               
+     }    
      post {
         always {
             // Nettoyage de l'espace de travail Jenkins
