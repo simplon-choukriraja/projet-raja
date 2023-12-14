@@ -32,6 +32,15 @@ pipeline {
                  //}
              //}
         //}
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                        sh 'kubectl create -f namespace.yml'
+                    }
+                 }
+             }
+        }
      }
      post {
         always {
