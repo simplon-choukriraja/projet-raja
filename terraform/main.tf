@@ -82,7 +82,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.admin
-    public_key = file("/home/raja/keys.pub") 
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzxOdvEDVyYLtK5k4+EssfzqqhvtdsNTd5rHZ5nLQI0RIakUBEJSEzLzQPzh0+93RgwqoTJBXZP10GsAIsf2isT63Uc+gmCNVbhvYh78PI8Xgk2vA6UtzlAJX+B4PQIPgHYcc69i4CGeXP+KIPK0BNPuLKo3GU7/I4NqftYiZaSmpVUSgCJR5GfBFprBmInm/9h/Zkx073A0D65ETnjhMXPecvVlXFru8DUaFY9278zxrv+2aXRg4tI4nrV2V+SX4ke+O2hadBXJbOMlYol/AoyviH20dib8Du8gkbeUHDM0cD+UbCk1jxc/8sLdJRqaIwklcIEwBE96WQ424EUoulT9MeFYTLuPV3BmZ35TFZL/7+CjvH62Rd60UgW1UCfdnIBRgLdzkQ6gwxWXjVJwDOJEBlub3V9ABSCTLwPMhwlTc+QBByGIlFLPc9LeLqdaztvOmDPRlZXyAoKLdLsv3YiVgkTv1lJf4HpDeEE7/BXBnCnH/YCgaNsvq4YusYzhM= raja@MacBook-Air-de-Raja-Choukri.local"
     }
 
   os_disk {
