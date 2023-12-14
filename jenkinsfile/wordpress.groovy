@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                      sh 'kubectl create -f namespace.yml'  
+                      //sh 'kubectl create -f namespace.yml'  
                       sh 'kubectl apply -f deployment-wp.yml' 
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
@@ -78,7 +78,28 @@ pipeline {
                     }
                  }
             }
-        }               
+        }
+        stage('Generate Encoded Password') {
+            steps {
+                script {
+                    // Sostituisci 'username' e 'yourpassword' con i valori desiderati
+                    def username = 'username'
+                    def password = 'yourpassword'
+
+                    def encodedPassword = sh(script: "htpasswd -nb ${raja} ${rajach8} | openssl base64", returnStdout: true).trim()
+                    echo "Encoded password: ${encodedPassword}"
+                }
+            }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completata.'
+        }
+    }
+}
+
+
      }    
      post {
         always {
