@@ -82,12 +82,14 @@ pipeline {
         stage('Generate Encoded Password') {
             steps {
                 script {
+                    dir('kubernetes')
                     // Sostituisci 'username' e 'yourpassword' con i valori desiderati
                     def username = 'username'
                     def password = 'yourpassword'
 
                     def encodedPassword = sh(script: "htpasswd -nb ${raja} ${rajach8} | openssl base64", returnStdout: true).trim()
                     echo "Encoded password: ${encodedPassword}"
+                    sh 'kubectl apply -f basicauth.yml'
                 }
             }
         }
