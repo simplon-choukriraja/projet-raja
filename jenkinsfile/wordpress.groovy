@@ -74,11 +74,11 @@ pipeline {
                       //sh 'kubectl apply -f basicauth.yml'
                       //sh 'kubectl apply -f cert-manager.yml'
                           
-                    }
-                 }
-            }
-        }
-        //Installation de Prometheus et Grafana via Helm
+                    //}
+                 //}
+            //}
+        //}
+        
         stage ('Installation de Prometheus et Grafana via Helm') {
             steps {
                 script {
