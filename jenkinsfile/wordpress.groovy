@@ -67,7 +67,7 @@ pipeline {
                       sh 'kubectl apply -f ingress.yml'
                       sh 'kubectl apply -f service-mysql.yml'
                       sh 'kubectl apply -f middleware.yml'
-                      sh 'kubectl apply -f pv.yml'
+                      sh 'kubectl apply -f pvc.yml'
                       sh 'kubectl apply -f secret-wp.yml'
                       sh 'kubectl apply -f secret-mysql.yml'
                       sh 'kubectl apply -f service-wp.yml'
