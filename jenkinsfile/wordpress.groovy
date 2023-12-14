@@ -21,26 +21,26 @@ pipeline {
         }
 
         
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
-                    //}
-                 //}
-             //}
-        //}
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                 }
+             }
+        }
 
-        //stage('Add az get-credentials Kubernetes') {
-            //steps {
-                //script {
-                    //dir('kubernetes') {
-                      //sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
-                    //}
-                 //}
-             //}
-        //}
+        stage('Add az get-credentials Kubernetes') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                      sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
+                    }
+                 }
+             }
+        }
         
         stage('Traefik avec Helm') {
             steps {
