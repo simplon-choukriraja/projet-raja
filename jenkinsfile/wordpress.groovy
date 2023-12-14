@@ -22,26 +22,37 @@ pipeline {
         }
 
         
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
-                    //}
-                 //}
-             //}
-        //}
-        //stage('Build Namespace.yml') {
-            //steps {
-                //script {
-                    //dir('kubernetes') {
-                        //sh 'kubectl create -f namespace.yml'
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                 }
+             }
+        }
+
+        stage('Az get-credentials Kubernetes') {
+            steps {
+                script {
+                    dir('terraform') {
+                      sh sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
+                    }
+                 }
+             }
+        }
+        
+        stage('Build Namespace.yml') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                        sh 'kubectl create -f namespace.yml'
                         
-                    //}
-                 //}
-             //}
-        //}
+                    }
+                 }
+             }
+        }
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
                 script {
