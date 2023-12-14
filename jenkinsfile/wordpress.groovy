@@ -21,9 +21,9 @@ pipeline {
         }
 
         
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
+        stage('Run Terraform Commands') {
+            steps {
+                script {
                     //dir('terraform') {
                         //sh 'terraform init'
                         //sh 'terraform apply -auto-approve'
@@ -42,19 +42,19 @@ pipeline {
              //}
         //}
         
-        //stage('Traefik avec Helm') {
-            //steps {
-                //script {
-                    //dir('kubernetes') {
-                      // AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES  
-                      //sh 'helm repo add traefik https://helm.traefik.io/traefik'
-                      //sh 'helm repo update'
-                      // DÉPLOYER TRAEFIK AVEC HELM
-                      //sh 'helm install traefik traefik/traefik'
-                    //}
-                //}
-            //}
-        //}
+        stage('Traefik avec Helm') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                       //AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES  
+                      sh 'helm repo add traefik https://helm.traefik.io/traefik'
+                      sh 'helm repo update'
+                       //DÉPLOYER TRAEFIK AVEC HELM
+                      sh 'helm install traefik traefik/traefik'
+                    }
+                }
+            }
+        }
         
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
@@ -72,7 +72,7 @@ pipeline {
                       ssh 'kubectl apply -f service-wp.yml'
                       ssh 'kubectl apply -f storageclass.yml'  
                       ssh 'kubectl apply -f basicauth.yml'
-                      ssh 'kubectl apply -f cert-manager.yml'
+                      //ssh 'kubectl apply -f cert-manager.yml'
                           
                     }
                  }
