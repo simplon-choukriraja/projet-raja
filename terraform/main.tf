@@ -82,7 +82,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.admin
-    public_key = file("/Users/raja/key/keys.pub") 
+    public_key = file("/home/raja/keys.pub") 
     }
 
   os_disk {
