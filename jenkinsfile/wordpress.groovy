@@ -38,5 +38,12 @@ pipeline {
                  }
              }
         }
+        stage('Build wordpress with Kubernetes')
+            steps {
+                script {
+                    kubernetesDeploy(configs:"deployment-wp.yml",kubecongId"kubernetes"
+                }
+            }
+        }
     }
-}
+        
