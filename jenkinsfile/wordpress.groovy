@@ -91,17 +91,8 @@ pipeline {
                 }
             }
         }
-    }
-
-    post {
-        always {
-            echo 'Pipeline completata.'
-        }
-    }
-}
-
-
-     }    
+     }
+ 
      post {
         always {
             // Nettoyage de l'espace de travail Jenkins
