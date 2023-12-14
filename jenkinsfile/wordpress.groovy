@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                      sh 'kubectl create -f namespace.yml'  
+                      //sh 'kubectl create -f namespace.yml'  
                       sh 'kubectl apply -f deployment.wp.yml' 
                       sh 'kubectl apply -f deployment.mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
