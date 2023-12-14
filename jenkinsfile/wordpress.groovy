@@ -38,12 +38,14 @@ pipeline {
                  }
              }
         }
-        stage('Build wordpress with Kubernetes') {
+        stage('Deploying App to Kubernetes') {
             steps {
                 script {
-                    kubernetesDeploy(configs:"namespace.yml",kubecongId"kubernetes"
+                    sh 'kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")'
                 }
             }
         }
-    }
         
+    }
+
+}
