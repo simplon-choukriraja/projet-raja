@@ -32,7 +32,7 @@ pipeline {
                  //}
              //}
         //}
-        stage('Run Terraform Commands') {
+        stage('Build Namespace.yml') {
             steps {
                 script {
                     dir('kubernetes') {
