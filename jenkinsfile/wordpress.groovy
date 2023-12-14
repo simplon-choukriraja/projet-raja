@@ -90,6 +90,7 @@ pipeline {
                     echo "Encoded password: ${encodedPassword}"
                 }
             }
+        }
     }
 
     post {
