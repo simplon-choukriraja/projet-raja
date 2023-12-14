@@ -22,16 +22,16 @@ pipeline {
         }
 
         
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                    }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                    //}
+                 //}
+             //}
+        //}
      }
      post {
         always {
