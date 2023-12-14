@@ -15,7 +15,8 @@ pipeline {
                 script {
                 // Eseguire l'autenticazione ad Azure utilizzando le credenziali di servizio
                 sh 'az login --service-principal -u 7ac0b3c5-acf9-4398-afdf-8d77fe0aaaaa -p JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw --tenant a2e466aa-4f86-4545-b5b8-97da7c8febf3'
-                
+                sh 'az aks get-credentials --name myakscluster --resource-group projet-rj'
+'
                 }
             }
         }
@@ -30,13 +31,6 @@ pipeline {
                     }
                  }
              }
-        }
-        stage('Deploying App to Kubernetes') {
-            steps {
-                script {
-                    sh 'kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")'
-                }
-            }
         }
      }
      post {
