@@ -271,7 +271,7 @@ Pour chiffrer mdp, j'ai exécuté la commande suivante :
 
 ```consol
 htpasswd -nb user password | openssl base64 
-htpasswd -nb raja rajach8 | openssl base64
+htpasswd -nb raja rjch8 | openssl base64
 ```
 - Sur la mv c'est on utilise cet commande pour genere le MDP on peu avoir un msg d'erreur car il connait pas du coup il faut la telecharge avec la commande suivant: 
 
