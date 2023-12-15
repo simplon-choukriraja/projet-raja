@@ -7,6 +7,9 @@ pipeline {
         AZURE_TENANT_ID = 'a2e466aa-4f86-4545-b5b8-97da7c8febf3'  
         AZURE_CLIENT_ID = '7ac0b3c5-acf9-4398-afdf-8d77fe0aaaaa'
         AZURE_CLIENT_SECRET = 'JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw'
+        KUBECONFIG = '/path/to/kubeconfig'
+        NAMESPACE = 'default'
+        SERVICE_NAME = 'LoadBalancer'
     }
     
     stages{
@@ -78,6 +81,19 @@ pipeline {
                  }
             }
         }
+      
+      
+
+        stage('Update DNS') {
+            steps {
+                script {
+                    // Assumi che lo script per l'aggiornamento del DNS sia in un file denominato update-dns.sh
+                    sh './update-dns.sh'
+                }
+            }
+        }
+
+        
         
         //stage ('Installation de Prometheus et Grafana via Helm') {
             //steps {
