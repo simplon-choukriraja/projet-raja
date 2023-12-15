@@ -51,7 +51,7 @@ pipeline {
                       sh 'helm repo add traefik https://helm.traefik.io/traefik'
                       sh 'helm repo update'
                        //DÉPLOYER TRAEFIK AVEC HELM
-                      sh 'helm install traefik traefik/traefik'
+                      sh 'helm upgrade --install traefik traefik/traefik'
                     }
                 }
             }
