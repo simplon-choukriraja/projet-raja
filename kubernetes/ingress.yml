@@ -4,6 +4,8 @@ metadata:
   name: wordpress-ingress
   namespace: wordpress
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: wordpress-auth@kubernetescrd
+    cert-manager.io/issuer: cert-manager
 spec:
   ingressClassName: traefik
   rules:
