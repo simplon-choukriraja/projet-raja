@@ -7,7 +7,7 @@ pipeline {
         AZURE_TENANT_ID = 'a2e466aa-4f86-4545-b5b8-97da7c8febf3'  
         AZURE_CLIENT_ID = '7ac0b3c5-acf9-4398-afdf-8d77fe0aaaaa'
         AZURE_CLIENT_SECRET = 'JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw'
-        NAMESPACE = 'dafault'
+        NAMESPACE = 'wordpress'
         SERVICE_NAME = 'traefik'
         GANDI_API_KEY = 'M7qe4MrloWGoNenNR8fQE26l'
         DNS_ZONE = 'raja-ch.me'
