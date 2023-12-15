@@ -20,6 +20,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: wordpress-service
+                name: wordpress-service 
                 port:
                   number: 80
