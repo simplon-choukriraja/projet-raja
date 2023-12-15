@@ -15,7 +15,7 @@ kind: Secret
 metadata:
   name: authsecret
   namespace: wordpress 
-stringData: 
+data: 
   user: cmFqYTokYXByMSQ5Y3pqMHFhSiRlSE1weE4wSzByb2ozVE03Q2VkUHAwCgo=
 
 
