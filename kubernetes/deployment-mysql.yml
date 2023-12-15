@@ -16,7 +16,7 @@ spec:
         app: mysql
     spec:
       containers:
-        - name: demo-mysql-container
+        - name: demo-mysql-container 
           image: mysql:8
           imagePullPolicy: IfNotPresent      
           ports:
