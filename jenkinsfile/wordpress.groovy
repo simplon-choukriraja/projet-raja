@@ -72,7 +72,6 @@ pipeline {
                       sh 'kubectl apply -f secret-mysql.yml'
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'  
-                      sh 'kubectl apply -f basicauth.yml'
                       sh 'kubectl apply -f cert-manager.yml'
                           
                     }
