@@ -86,18 +86,7 @@ pipeline {
             }
         }
 
-        stage('Auth-Secret') {
-            steps {
-                script {
-                    // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
-                    // e utilizza kubectl per ottenere il valore del secret
-                    def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
-                    def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
-                    sh 'curl -k ${username}:${password} https://wordpress.raja-ch.me'
-                }
-            }
-        }
-
+    
         stage('Recover IP Traefik') {
             steps {
                 script {
@@ -117,6 +106,18 @@ pipeline {
                     -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
                     https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                     """
+                }
+            }
+        }
+
+        stage('Auth-Secret') {
+            steps {
+                script {
+                    // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
+                    // e utilizza kubectl per ottenere il valore del secret
+                    def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
+                    def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
+                    sh 'curl -k ${username}:${password} https://wordpress.raja-ch.me'
                 }
             }
         }
