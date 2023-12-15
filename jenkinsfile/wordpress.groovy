@@ -83,18 +83,18 @@ pipeline {
         stage ('Installation de Prometheus et Grafana via Helm') {
             steps {
                 script {
-                    Installation de Prometheus et Grafana via Helm
+                    //Installation de Prometheus et Grafana via Helm
                     sh ('''
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
                     chmod 700 get_helm.sh
                     ./get_helm.sh
                     ''')
-                        Ajout du repository pour Prometheus et Grafana, et mise à jour
+                        //Ajout du repository pour Prometheus et Grafana, et mise à jour
                         sh ('''
                         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
                         helm repo update
                         ''')
-                            Installation d'un Helm Chart dans un namespace monitoring
+                            //Installation d'un Helm Chart dans un namespace monitoring
                             sh ('''
                             helm install prometheus \
                             prometheus-community/kube-prometheus-stack \
