@@ -23,8 +23,11 @@ spec:
             - containerPort: 80
           resources:
             limits:
-              memory: '2Gi'
-              cpu: '1000m'
+              memory: '4Gi'
+              cpu: '2000m'
+            requests:
+              memory: '2Gi'  
+              cpu: '1000m' 
           volumeMounts:
             - name: wordpress-data
               mountPath: /var/www/html/wp
