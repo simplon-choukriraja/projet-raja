@@ -75,6 +75,7 @@ pipeline {
                       sh 'kubectl apply -f middleware.yml'
                       sh 'kubectl apply -f pvc.yml'
                       sh 'kubectl apply -f basicauth.yml'
+                      sh 'kubectl create secret generic authsecret --from-literal=users=dXNlcjokYXByMSQwdERsbjBKZyR4LnlyUk8ubVltdm1mNmxUNG9rNWExCgo -n wordpress'
                       sh 'kubectl apply -f secret-mysql.yml'
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'  
@@ -82,15 +83,6 @@ pipeline {
                           
                     }
                  }
-            }
-        }
-        stage('Auth-Secret') {
-            steps {
-                script {
-                    // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
-                    // e utilizza kubectl per ottenere il valore del secret
-                    def decodedSecret = sh(script: "kubectl get secret authsecret -n wordpress -o=jsonpath='{.data.users}' | base64 --decode", returnStdout: true).trim()
-                }
             }
         }
 
