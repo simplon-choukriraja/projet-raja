@@ -104,7 +104,8 @@ pipeline {
                     https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                     """
                 }
-        
+            }
+        }
         //stage ('Installation de Prometheus et Grafana via Helm') {
             //steps {
                 //script {
