@@ -108,7 +108,7 @@ pipeline {
         stage ('Loki') {
             steps {
                 script {
-                    Installation Loki
+                    //Installation Loki
                     sh ('''
                     helm repo add grafana https://grafana.github.io/helm-charts
                     helm repo update
