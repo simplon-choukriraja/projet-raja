@@ -8,6 +8,10 @@ metadata:
     cert-manager.io/issuer: cert-manager
 spec:
   ingressClassName: traefik
+  tls: 
+   - hosts: 
+       - wordpress.raja-ch.me
+     secretName: tls-cert-ingress-http
   rules:
     - host: wordpress.raja-ch.me
       http:
