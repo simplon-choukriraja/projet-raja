@@ -4,8 +4,8 @@ metadata:
   name: wordpress-ingress
   namespace: wordpress
   annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
+  ingressClassName: traefik
   rules:
     - host: wordpress.raja-ch.me
       http:
