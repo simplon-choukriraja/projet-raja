@@ -12,6 +12,7 @@ pipeline {
         GANDI_API_KEY = 'M7qe4MrloWGoNenNR8fQE26l'
         DNS_ZONE = 'raja-ch.me'
         DNS_RECORD = 'www'
+        SECRET_NAME = 'authsecret'
     }
     
     stages{
