@@ -16,7 +16,7 @@ metadata:
   name: authsecret
   namespace: wordpress 
 data: 
-  username: cmFqYTokYXByMSREYmJWL1ZjcyRkcHdTVlhQRnk2UU0vYk95UVRhWlMxCgo= 
+  user: cmFqYTokYXByMSREYmJWL1ZjcyRkcHdTVlhQRnk2UU0vYk95UVRhWlMxCgo= 
   password: cmpjaDg6JGFwcjEkU1JuSUtUQVIkUFJOanFqbkpyUTJrS3FpTzFFc0t1LwoK
 
 
