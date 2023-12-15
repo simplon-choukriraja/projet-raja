@@ -57,27 +57,27 @@ pipeline {
             //}
         //}
         
-        //stage('Deploy App Wordpress end MariaDB with k8s') {
-            //steps {
-                //script {
-                    //dir('kubernetes') {
-                      //sh 'kubectl create -f namespace.yml'  
-                      //sh 'kubectl apply -f deployment-wp.yml' 
-                      //sh 'kubectl apply -f deployment-mysql.yml'
-                      //sh 'kubectl apply -f ingress.yml'
-                      //sh 'kubectl apply -f service-mysql.yml'
+        stage('Deploy App Wordpress end MariaDB with k8s') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                      sh 'kubectl create namespace wordpress'  
+                      sh 'kubectl apply -f deployment-wp.yml' 
+                      sh 'kubectl apply -f deployment-mysql.yml'
+                      sh 'kubectl apply -f ingress.yml'
+                      sh 'kubectl apply -f service-mysql.yml'
                       //sh 'kubectl apply -f middleware.yml'
-                      //sh 'kubectl apply -f pvc.yml'
-                      //sh 'kubectl apply -f secret-mysql.yml'
-                      //sh 'kubectl apply -f service-wp.yml'
-                      //sh 'kubectl apply -f storageclass.yml'  
+                      sh 'kubectl apply -f pvc.yml'
+                      sh 'kubectl apply -f secret-mysql.yml'
+                      sh 'kubectl apply -f service-wp.yml'
+                      sh 'kubectl apply -f storageclass.yml'  
                       //sh 'kubectl apply -f basicauth.yml'
                       //sh 'kubectl apply -f cert-manager.yml'
                           
-                    //}
-                 //}
-            //}
-        //}
+                    }
+                 }
+            }
+        }
         
         //stage ('Installation de Prometheus et Grafana via Helm') {
             //steps {
@@ -104,19 +104,19 @@ pipeline {
                         //}
                 //}
         
-        stage ('Loki') {
-            steps {
-                script {
+        //stage ('Loki') {
+            //steps {
+                //script {
                     //Installation Loki
-                    sh ('''
-                    helm repo add grafana https://grafana.github.io/helm-charts
-                    helm repo update
-                    helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
-                    helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
-                    ''')
-                }
-            }
-        }
+                    //sh ('''
+                    //helm repo add grafana https://grafana.github.io/helm-charts
+                    //helm repo update
+                    //helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
+                    //helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
+                    //''')
+                //}
+            //}
+        //}
      
      }                    
  
