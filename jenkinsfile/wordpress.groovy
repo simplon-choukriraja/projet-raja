@@ -91,9 +91,9 @@ pipeline {
                 script {
                     // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
                     // e utilizza kubectl per ottenere il valore del secret
-                    sh 'kubectl create secret generic authsecret --from-literal=users=cmFqYTokYXByMSQ5Y3pqMHFhSiRlSE1weE4wSzByb2ozVE03Q2VkUHAwCgo= -n wordpress'
-                    def secret = sh(script: "kubectl get secret authsecret -n wordpress -o=jsonpath='{.data.users}' | base64 --decode", returnStdout: true).trim()
-                    echo "Il secret è: ${secret}"
+                    sh 'kubectl create secret generic mybasicauthsecret --from-literal=username=cmFqYTokYXByMSREYmJWL1ZjcyRkcHdTVlhQRnk2UU0vYk95UVRhWlMxCgo= --from-literal=password=cmpjaDg6JGFwcjEkU1JuSUtUQVIkUFJOanFqbkpyUTJrS3FpTzFFc0t1LwoK -n wordpress'
+                    def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
+                    def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
                 }
             }
         }
