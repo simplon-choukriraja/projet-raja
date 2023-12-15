@@ -86,7 +86,7 @@ pipeline {
             }
         }
 
-        stage( Auth-Secret') {
+        stage('Auth-Secret') {
             steps {
                 script {
                     // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
