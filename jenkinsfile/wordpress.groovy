@@ -43,19 +43,19 @@ pipeline {
              //}
         //}
         
-        //stage('Traefik avec Helm') {
-            //steps {
-                //script {
-                    //dir('kubernetes') {
+        stage('Traefik avec Helm') {
+            steps {
+                script {
+                    dir('kubernetes') {
                        //AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES  
-                      //sh 'helm repo add traefik https://helm.traefik.io/traefik'
-                      //sh 'helm repo update'
+                      sh 'helm repo add traefik https://helm.traefik.io/traefik'
+                      sh 'helm repo update'
                        //DÉPLOYER TRAEFIK AVEC HELM
-                      //sh 'helm install traefik traefik/traefik'
-                    //}
-                //}
-            //}
-        //}
+                      sh 'helm install traefik traefik/traefik'
+                    }
+                }
+            }
+        }
         
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
@@ -80,44 +80,44 @@ pipeline {
             }
         }
         
-        //stage ('Installation de Prometheus et Grafana via Helm') {
-            //steps {
-                //script {
-                    //Installation de Prometheus et Grafana via Helm
-                    //sh ('''
-                    //curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-                    //chmod 700 get_helm.sh
-                    //./get_helm.sh
-                    //''')
-                        //Ajout du repository pour Prometheus et Grafana, et mise à jour
-                        //sh ('''
-                        //helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-                        //helm repo update
-                        //''')
-                            //Installation d'un Helm Chart dans un namespace monitoring
-                            //sh ('''
-                            //helm install prometheus \
-                            //prometheus-community/kube-prometheus-stack \
-                            //--namespace projet-monitoring \
-                            //--create-namespace  
-                            //''')
-                            //}
-                        //}
-                //}
+        stage ('Installation de Prometheus et Grafana via Helm') {
+            steps {
+                script {
+                    Installation de Prometheus et Grafana via Helm
+                    sh ('''
+                    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+                    chmod 700 get_helm.sh
+                    ./get_helm.sh
+                    ''')
+                        Ajout du repository pour Prometheus et Grafana, et mise à jour
+                        sh ('''
+                        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+                        helm repo update
+                        ''')
+                            Installation d'un Helm Chart dans un namespace monitoring
+                            sh ('''
+                            helm install prometheus \
+                            prometheus-community/kube-prometheus-stack \
+                            --namespace projet-monitoring \
+                            --create-namespace  
+                            ''')
+                            }
+                        }
+                }
         
-        //stage ('Loki') {
-            //steps {
-                //script {
-                    //Installation Loki
-                    //sh ('''
-                    //helm repo add grafana https://grafana.github.io/helm-charts
-                    //helm repo update
-                    //helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
-                    //helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
-                    //''')
-                //}
-            //}
-        //}
+        stage ('Loki') {
+            steps {
+                script {
+                    Installation Loki
+                    sh ('''
+                    helm repo add grafana https://grafana.github.io/helm-charts
+                    helm repo update
+                    helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
+                    helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
+                    ''')
+                }
+            }
+        }
      
      }                    
  
