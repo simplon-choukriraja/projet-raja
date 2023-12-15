@@ -93,7 +93,8 @@ pipeline {
                     // e utilizza kubectl per ottenere il valore del secret
                     def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
                     def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
-                    sh "curl -u ${username}:${password} https://wordpress.raja-ch.me"
+                    sh 
+                    sh 'curl -k ${username}:${password} https://wordpress.raja-ch.me'
                 }
             }
         }
