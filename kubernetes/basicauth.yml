@@ -8,12 +8,4 @@ spec:
     removeHeader: false
     secret: authsecret
 
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: authsecret
-  namespace: wordpress 
-data:
-  users: 
-    dXNlcjokYXByMSQwdERsbjBKZyR4LnlyUk8ubVltdm1mNmxUNG9rNWExCgo=
+
