@@ -7,9 +7,11 @@ pipeline {
         AZURE_TENANT_ID = 'a2e466aa-4f86-4545-b5b8-97da7c8febf3'  
         AZURE_CLIENT_ID = '7ac0b3c5-acf9-4398-afdf-8d77fe0aaaaa'
         AZURE_CLIENT_SECRET = 'JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw'
-        KUBECONFIG = '/path/to/kubeconfig'
-        NAMESPACE = 'default'
-        SERVICE_NAME = 'LoadBalancer'
+        NAMESPACE = 'dafault'
+        SERVICE_NAME = 'traefik'
+        GANDI_API_KEY = 'M7qe4MrloWGoNenNR8fQE26l'
+        DNS_ZONE = 'raja-ch.me'
+        DNS_RECORD = 'www'
     }
     
     stages{
@@ -81,19 +83,27 @@ pipeline {
                  }
             }
         }
-      
-      
 
-        stage('Update DNS') {
+        stage('Recover IP Traefik') {
             steps {
                 script {
-                    // Assumi che lo script per l'aggiornamento del DNS sia in un file denominato update-dns.sh
-                    sh './update-dns.sh'
+                    // Esegue il comando kubectl per ottenere l'indirizzo IP del LoadBalancer
+                    def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                    echo "L'indirizzo IP di Traefik è: ${traffikIP}"
                 }
             }
-        }
+        } 
 
-        
+        stage('Aggiorna Record DNS su Gandi') {
+            steps {
+                script {
+                    // Utilizza l'API di Gandi per aggiornare il record DNS
+                    sh """
+                    curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                    -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
+                    https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
+                    """
+                }
         
         //stage ('Installation de Prometheus et Grafana via Helm') {
             //steps {
@@ -143,3 +153,4 @@ pipeline {
         }
     }
 }
+
