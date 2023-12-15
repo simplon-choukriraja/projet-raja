@@ -85,6 +85,16 @@ pipeline {
             }
         }
 
+        stage('Utilizza Secret') {
+            steps {
+                script {
+                    // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
+                    // e utilizza kubectl per ottenere il valore del secret
+                    sh 'kubectl create secret generic authsecret --from-literal=users=cmFqYTokYXByMSQ5Y3pqMHFhSiRlSE1weE4wSzByb2ozVE03Q2VkUHAwCgo= -n wordpress'
+                }
+            }
+        }
+
         stage('Recover IP Traefik') {
             steps {
                 script {
