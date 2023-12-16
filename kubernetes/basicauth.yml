@@ -8,15 +8,7 @@ spec:
     removeHeader: false
     secret: authsecret
 
----
 
-apiVersion: v1
-kind: Secret
-metadata:
-  name: authsecret
-  namespace: wordpress 
-data: 
-  username: cmFqYQ==
   
 
 
