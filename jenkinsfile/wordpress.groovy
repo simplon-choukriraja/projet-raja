@@ -27,27 +27,27 @@ pipeline {
         }
 
         
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
                         
-                    //}
-                 //}
-             //}
-        //}
+                    }
+                 }
+             }
+        }
 
-        //stage('Add az get-credentials Kubernetes') {
-            //steps {
-                //script {
-                    //dir('kubernetes') {
-                      //sh 'az aks get-credentials --name myakscluster --resource-group projet'
-                    //}
-                 //}
-             //}
-        //}
+        stage('Add az get-credentials Kubernetes') {
+            steps {
+                script {
+                    dir('kubernetes') {
+                      sh 'az aks get-credentials --name myakscluster --resource-group projet'
+                    }
+                 }
+             }
+        }
         
         stage('Traefik avec Helm') {
             steps {
@@ -110,55 +110,55 @@ pipeline {
             }
         }
 
-        //stage('Auth-Secret') {
-            //steps {
-                //script {
-                    // Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
-                    // e utilizza kubectl per ottenere il valore del secret
-                    //def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
-                    //def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
-                    //sh 'curl -k ${username}:${password} https://wordpress.raja-ch.me'
-                //}
-            //}
-        //}
-        //stage ('Installation de Prometheus et Grafana via Helm') {
-            //steps {
-                //script {
-                    //Installation de Prometheus et Grafana via Helm
-                    //sh ('''
-                    //curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-                    //chmod 700 get_helm.sh
-                    //./get_helm.sh
-                    //''')
-                        //Ajout du repository pour Prometheus et Grafana, et mise à jour
-                        //sh ('''
-                        //helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-                        //helm repo update
-                        //''')
-                            //Installation d'un Helm Chart dans un namespace monitoring
-                            //sh ('''
-                            //helm install prometheus \
-                            //prometheus-community/kube-prometheus-stack \
-                            //--namespace projet-monitoring \
-                            //--create-namespace  
-                            //''')
-                            //}
-                        //}
-                //}
+        stage('Auth-Secret') {
+            steps {
+                script {
+                     Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
+                     e utilizza kubectl per ottenere il valore del secret
+                    def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
+                    def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
+                    sh 'curl -k ${username}:${password} https://wordpress.raja-ch.me'
+                }
+            }
+        }
+        stage ('Installation de Prometheus et Grafana via Helm') {
+            steps {
+                script {
+                    Installation de Prometheus et Grafana via Helm
+                    sh ('''
+                    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+                    chmod 700 get_helm.sh
+                    ./get_helm.sh
+                    ''')
+                        Ajout du repository pour Prometheus et Grafana, et mise à jour
+                        sh ('''
+                        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+                        helm repo update
+                        ''')
+                            Installation d'un Helm Chart dans un namespace monitoring
+                            sh ('''
+                            helm install prometheus \
+                            prometheus-community/kube-prometheus-stack \
+                            --namespace projet-monitoring \
+                            --create-namespace  
+                            ''')
+                            }
+                        }
+                }
         
-        //stage ('Loki') {
-            //steps {
-                //script {
-                    //Installation Loki
-                    //sh ('''
-                    //helm repo add grafana https://grafana.github.io/helm-charts
-                    //helm repo update
-                    //helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
-                    //helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
-                    //''')
-                //}
-            //}
-        //}
+        stage ('Loki') {
+            steps {
+                script {
+                    Installation Loki
+                    sh ('''
+                    helm repo add grafana https://grafana.github.io/helm-charts
+                    helm repo update
+                    helm upgrade --install promtail --namespace projet-monitoring grafana/promtail
+                    helm upgrade --install loki --namespace projet-monitoring grafana/loki-stack
+                    ''')
+                }
+            }
+        }
      
      }                    
  
