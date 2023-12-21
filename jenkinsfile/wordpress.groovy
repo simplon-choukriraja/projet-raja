@@ -108,7 +108,7 @@ pipeline {
             }
         } 
 
-        stage('Mettre à jour l'enregistrement DNS sur Gandi') {
+        stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
                     // Utilizza l'API di Gandi per aggiornare il record DNS
