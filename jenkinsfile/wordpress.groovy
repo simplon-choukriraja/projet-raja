@@ -16,6 +16,17 @@ pipeline {
     }
     
     stages{
+        stage('Clean Workspace') {
+            when {
+                not {
+                    triggeredBy 'TimerTrigger'
+                }
+            }
+            steps {
+                // This step deletes the entire workspace
+                deleteDir()
+            }
+        }
         stage('Azure Login') {
             steps {
                 script {
