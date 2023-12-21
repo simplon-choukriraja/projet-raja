@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default = "projet"
+  default = "prj"
 }
 
 variable "location" {
