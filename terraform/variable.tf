@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default = "prj"
+  default = "projet"
 }
 
 variable "location" {
@@ -16,7 +16,7 @@ variable "subnet_j" {
 
 
 variable "aks_cluster" {
-  default = "myAkscluster"
+  default = "myakscluster"
 }
 
 variable "ip_j" {
@@ -30,13 +30,7 @@ variable "vm" {
 
 variable "OSdisk_name" {
     default = "OSdisk"
-
 }
-
-variable "public_key_path" {
-  default = "/Users/raja/key/keys.pub"
-}
-
 
 variable "vm-projet" {
     default = "vm-projet"
