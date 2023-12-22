@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
-                        sh 'cd /tmp/terraform'
+                        sh 'cd /tmp/projet-raja/terraform'
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                         
