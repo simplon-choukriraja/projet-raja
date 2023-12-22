@@ -1,6 +1,6 @@
 variable "resource_group_name" {
   default = "projet"
-}
+} 
 
 variable "location" {
   default = "westeurope"
