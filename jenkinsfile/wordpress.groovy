@@ -51,10 +51,10 @@ pipeline {
                 //script {
                     //dir('kubernetes') {
                       //sh 'az aks get-credentials --name myakscluster --resource-group projet'
-                    }
-                 }
-             }
-        }
+                    //}
+                 //}
+             //}
+        //}
         
         //stage('Traefik avec Helm') {
             //steps {
