@@ -83,7 +83,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   admin_ssh_key {
     username   = var.admin
     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5JnPzOheYKi7Yfx3+h9FC/pFuSdS98O5a85USjr6jI3juyVozfd40EkFHM+0f/kf8HmJUIxyYzRG0pds5YIZXGWez7PQl15huohdkGbvioNkP8uAH/5V3qsjQcOEETE/Wzo+BvI2gYmWKy9hepgVr67/M2yeFOgxl5Lm8ub0FbweCcv2yneB4vvCGURbW8hxlbhvALyCXTdyvPg8NH1vwjqwSpnYFteUdGoetQtyFKm+SxzAkET10CgP52EMrsGz+1v9oPRTNReNFvNs/dLKPoq9AUi91J0x5KnZe9WDC7gBwYyo+ePvkKQSl4HhVzzYWva4Nlv4sgkG6TwSSQDhkmXbzegQekXMGqP2C/e9V+QZWUiLMb2mPBIyakKA4485R+tU4JUiQXW1iFt5QarIdL0Kl8J/TUV2Glh5lGKE03r/KQ3BjUkwBaHKgVmEDyNVN5MngRrPcZYLWepmyeZ6pL1h9XvQWL7jG0tzWlVQL2LBqTb06G1RVd+cbqReFAkmFqVttbrayerFLctThMkyGp+FIhbWfIrBjJGeAADbI3IWs4JUIY/QxUQPl5wkj6NT9Yxj2ExBRDje9prjpzNuGO6EhjZyZrT+iYkbIMcF7R0JGhd15o3MP2CyhhyNFsptySPLY8IuLiTT9jBXee1WGIe7eF8I7fdugYEvn6Xwogw== raja@MacBook-Air-de-Raja-Choukri.local"
-    } 
+    }
 
   os_disk {
     name                 = var.OSdisk_name
