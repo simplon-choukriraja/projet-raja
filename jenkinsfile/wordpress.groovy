@@ -38,6 +38,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
+                        sh 'cd terraform'
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                         
