@@ -40,7 +40,7 @@ pipeline {
                 script {
                     dir('terraform') {
                         sh 'pwd'
-                        sh 'ls -a'
+                        sh 'ls -a -R'
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                         
