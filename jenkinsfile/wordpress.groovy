@@ -8,7 +8,7 @@ pipeline {
         AZURE_CLIENT_SECRET = 'JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw'
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
-        GANDI_API_KEY = 'M7qe4MrloWGoNenNR8fQE26l'
+        GANDI_API_KEY = 'M7qe4MrloWGoNenNR8fQE26l' 
         DNS_ZONE = 'raja-ch.me'
         DNS_RECORD = 'www'
         SECRET_NAME = 'authsecret'
