@@ -29,7 +29,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                scipt {
+                script {
                     sh 'git clone https://github.com/simplon-choukriraja/projet-raja.git'
                 }
             }
