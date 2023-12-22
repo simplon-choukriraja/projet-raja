@@ -29,7 +29,8 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    sh 'git clone https://github.com/simplon-choukriraja/projet-raja.git -v'
+                    sh 'cd /tmp'
+                    sh 'git clone https://github.com/simplon-choukriraja/projet-raja.git'
                 }
             }
         }
@@ -38,7 +39,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
-                        sh 'cd terraform'
+                        sh 'cd /tmp/terraform'
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                         
