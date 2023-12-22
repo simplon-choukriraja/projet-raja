@@ -1,6 +1,6 @@
 pipeline {
     agent any 
-
+    
     environment {
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
