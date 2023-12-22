@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "prj" {
   location = var.location
 }
 
-
+ 
 ## Create aks cluster
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
