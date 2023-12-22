@@ -37,7 +37,7 @@ pipeline {
         stage('Run Terraform Commands') {
             steps {
                 script {
-                    dir('terraform') {
+                    dir('projet-raja/terraform') {
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                         
