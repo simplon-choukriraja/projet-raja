@@ -73,7 +73,7 @@ pipeline {
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
                 script {
-                    dir('kubernetes') {
+                    dir('projet-raja/kubernetes') {
                       sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
                       sh 'kubectl create namespace wordpress'  
                       sh 'kubectl apply -f deployment-wp.yml' 
