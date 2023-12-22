@@ -16,7 +16,7 @@ variable "subnet_j" {
 
 
 variable "aks_cluster" {
-  default = "myakscluster"
+  default = "myAkscluster"
 }
 
 variable "ip_j" {
