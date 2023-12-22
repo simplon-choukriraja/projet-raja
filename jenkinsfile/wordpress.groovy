@@ -36,7 +36,14 @@ pipeline {
             }
         }
 
-        
+        stage('Clone Repository') {
+            steps {
+                sh('''
+                git clone https://github.com/simplon-choukriraja/Brief8-Raja.git
+                ''')
+            }
+        }
+
         stage('Run Terraform Commands') {
             steps {
                 script {
