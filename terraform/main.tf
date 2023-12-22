@@ -1,6 +1,6 @@
 # creation resource groupe
 
-resource "azurerm_resource_group" "projet" {
+resource "azurerm_resource_group" "prj" {
   name = var.resource_group_name
   location = var.location
 }
