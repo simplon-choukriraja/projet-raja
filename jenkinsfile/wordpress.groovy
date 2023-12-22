@@ -38,7 +38,6 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/terraform') {
-                        sh 'terraform destroy'
                         sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                         
