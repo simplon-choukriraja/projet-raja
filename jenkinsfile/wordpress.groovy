@@ -2,10 +2,6 @@ pipeline {
     agent any 
 
     environment {
-        AZURE_SUBSCRIPTION = 'a1f74e2d-ec58-4f9a-a112-088e3469febb'
-        AZURE_TENANT_ID = 'a2e466aa-4f86-4545-b5b8-97da7c8febf3'  
-        AZURE_CLIENT_ID = '7ac0b3c5-acf9-4398-afdf-8d77fe0aaaaa'
-        AZURE_CLIENT_SECRET = 'JID8Q~JaaVpUZ9fcvovJAny263zoFtccGeva0aTw'
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         GANDI_API_KEY = 'M7qe4MrloWGoNenNR8fQE26l' 
