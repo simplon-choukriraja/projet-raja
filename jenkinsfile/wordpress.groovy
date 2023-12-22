@@ -12,11 +12,6 @@ pipeline {
     
     stages{
         stage('Clean Workspace') {
-            when {
-                not {
-                    triggeredBy 'TimerTrigger'
-                }
-            }
             steps {
                 // This step deletes the entire workspace
                 deleteDir()
@@ -33,9 +28,9 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                sh('''
-                git clone https://github.com/simplon-choukriraja/projet-raja.git
-                ''')
+                scipt {
+                sh 'git clone https://github.com/simplon-choukriraja/projet-raja.git'
+                }
             }
         }
 
