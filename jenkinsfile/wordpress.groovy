@@ -2,9 +2,6 @@ pipeline {
     agent any 
     
     environment {
-        AZURE_CLIENT_ID = credentials('azure-client-id')
-        AZURE_CLIENT_SECRET = credentials('azure-client-secret')
-        AZURE_TENANT_ID = credentials('azure-tenant-id')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
@@ -23,8 +20,9 @@ pipeline {
             steps {
                 script {
                 // Eseguire l'autenticazione ad Azure utilizzando le credenziali di servizio
+                    withCredentials([azureServicePrincipal(credentialsId: 'AzureServicePrincipal')]) {
                         sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID' 
-                    
+                    }
                 }
             }
         }
