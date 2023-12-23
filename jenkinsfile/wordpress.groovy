@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                 // Eseguire l'autenticazione ad Azure utilizzando le credenziali di servizio
-                    sh 'az login --service-principal -u c6608247-3dee-4555-b0ae-f275f6ce38f0 -p fns8Q~PpgPKKTxEeR3FUqfPbu3h-0OsZjXiROc_K --tenant a2e466aa-4f86-4545-b5b8-97da7c8febf3' 
+                    sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID' 
                     
                 }
             }
