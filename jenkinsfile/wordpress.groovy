@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                      sh 'az aks get-credentials --name Akscluster --resource-group projet'
+                      sh 'az aks get-credentials --name myAkscluster --resource-group projet'
                     }
                  }
              }
