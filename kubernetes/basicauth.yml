@@ -8,6 +8,16 @@ spec:
     removeHeader: false
     secret: authsecret
 
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authsecret
+data:
+  users:
+    dXNlcjokYXByMSQwdERsbjBKZyR4LnlyUk8ubVltdm1mNmxUNG9rNWExCgo=
+
 
   
 
