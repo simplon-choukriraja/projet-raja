@@ -9,7 +9,7 @@ spec:
     secret: authsecret
 
 ---
-
+ 
 apiVersion: v1
 kind: Secret
 metadata:
