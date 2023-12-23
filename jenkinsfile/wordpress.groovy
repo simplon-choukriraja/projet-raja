@@ -35,17 +35,17 @@ pipeline {
             }
         }
 
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('projet-raja/terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('projet-raja/terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
                         
-                    //}
-                 //}
-             //}
-        //}
+                    }
+                 }
+             }
+        }
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -71,11 +71,11 @@ pipeline {
             }
         }
         
-        stage('Deploy App Wordpress end MariaDB with k8s') {
-            steps {
+        //stage('Deploy App Wordpress end MariaDB with k8s') {
+            //steps {
                 script {
-                    dir('kubernetes') {
-                      //sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
+                    dir('projet-raja/kubernetes') {
+                      sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
                       sh 'kubectl create namespace wordpress'  
                       sh 'ls -a'
                       sh 'kubectl apply -f deployment-mysql.yml'
@@ -109,11 +109,12 @@ pipeline {
             steps {
                 script {
                     // Utilizza l'API di Gandi per aggiornare il record DNS
-                    sh ('''
-                    curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                    -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
-                    https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
-                    ''')
+                    withCredentials([azureServicePrincipal(credentialsId: variable: 'API_KEY , 'GANDI_API_KEY')]) {
+                        sh ('''
+                            curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                            -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
+                            https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
+                            ''')
                 }
             }
         }
