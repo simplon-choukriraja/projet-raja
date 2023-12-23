@@ -35,23 +35,23 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
                         
-                    }
-                 }
-             }
-        }
+                    //}
+                 //}
+             //}
+        //}
 
         stage('Add az get-credentials Kubernetes') {
             steps {
                 script {
                     dir('kubernetes') {
-                      sh 'az aks get-credentials --name myAkscluster --resource-group projet --overwrite-existing'
+                    sh 'az aks get-credentials --name myAkscluster --resource-group projet --overwrite-existing'
                     }
                  }
              }
