@@ -75,7 +75,7 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                      sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
+                      //sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
                       sh 'kubectl create namespace wordpress'  
                       sh 'ls -a'
                       sh 'kubectl apply -f deployment-mysql.yml'
