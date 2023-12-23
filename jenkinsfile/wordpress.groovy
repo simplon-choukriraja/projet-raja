@@ -71,8 +71,8 @@ pipeline {
             }
         }
         
-        //stage('Deploy App Wordpress end MariaDB with k8s') {
-            //steps {
+        stage('Deploy App Wordpress end MariaDB with k8s') {
+            steps {
                 script {
                     dir('projet-raja/kubernetes') {
                       sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
