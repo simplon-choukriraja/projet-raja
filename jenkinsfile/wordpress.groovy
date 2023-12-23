@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                 // Eseguire l'autenticazione ad Azure utilizzando le credenziali di servizio
-                    withCredentials([azureServicePrincipal(credentialsId: 'AzureServicePrincipal')]) {
+                      withCredentials([azureServicePrincipal(credentialsId: 'AzureServicePrincipal')]) {
                         sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID' 
                     }
                 }
