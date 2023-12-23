@@ -77,7 +77,6 @@ pipeline {
                     dir('projet-raja/kubernetes') {
                       sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
                       sh 'kubectl create namespace wordpress'  
-                      sh 'ls -a'
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
                       sh 'kubectl apply -f service-mysql.yml'
@@ -109,7 +108,7 @@ pipeline {
             steps {
                 script {
                     // Utilizza l'API di Gandi per aggiornare il record DNS
-                    withCredentials([azureServicePrincipal(credentialsId: 'GANDI_API_KEY', variable: 'API_KEY')]) {
+                        withCredentials([azureServicePrincipal(credentialsId: 'GANDI_API_KEY', variable: 'API_KEY')]) {
                         sh ('''
                         curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
                         -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
