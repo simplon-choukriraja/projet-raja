@@ -97,7 +97,7 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                 script {
-                    Esegue il comando kubectl per ottenere l'indirizzo IP del LoadBalancer
+                    //Esegue il comando kubectl per ottenere l'indirizzo IP del LoadBalancer
                     def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
                     echo "L'indirizzo IP di Traefik è: ${traffikIP}"
                 }
@@ -107,7 +107,7 @@ pipeline {
         stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
-                     Utilizza l'API di Gandi per aggiornare il record DNS
+                     //Utilizza l'API di Gandi per aggiornare il record DNS
                         withCredentials([azureServicePrincipal(credentialsId: 'GANDI_API_KEY', variable: 'API_KEY')]) {
                         sh ('''
                         curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
