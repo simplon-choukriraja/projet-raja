@@ -13,12 +13,12 @@ pipeline {
     
     stages{
         
-        //stage('Clean Workspace') {
-            //steps {
-                //This step deletes the entire workspace
-                //deleteDir()
-            //}
-        //}
+        stage('Clean Workspace') {
+            steps {
+                This step deletes the entire workspace
+                deleteDir()
+            }
+        }
         
         stage('Azure Login') {
             steps {
@@ -40,16 +40,16 @@ pipeline {
             }
         }
 
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('projet-raja/terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
-                     //}
-                 //}
-             //}
-        //}
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('projet-raja/terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                     }
+                 }
+             }
+        }
 
         stage('Add az get-credentials Kubernetes') {
             steps {
