@@ -74,8 +74,8 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/kubernetes') {
-                      //sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml'
-                      //sh 'kubectl create namespace wordpress'  
+                      sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml'
+                      sh 'kubectl create namespace wordpress'  
                       sh 'kubectl apply -f deployment-wp.yml'  
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
@@ -86,7 +86,7 @@ pipeline {
                       sh 'kubectl apply -f secret-mysql.yml'
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'
-                      sh 'kubectl apply -f cert-manager.yml'
+                      sh 'kubectl create -f cert-manager.yml'
                       //sh 'kubectl get svc -n cert-manager'
                       //sh 'kubectl get pods -n cert-manager'
                       //sh 'kubectl logs -n cert-manager cert-manager-webhook-6bc9944d78-qwgqv'  
