@@ -94,7 +94,6 @@ pipeline {
                 script {
                     dir('projet-raja/kubernetes') {
                         sh 'kubectl apply -f middleware.yml'
-                        sh 'kubectl apply -f wait-pod.yml'
                         sh 'sleep 120'
                         sh 'kubectl apply -f cert-manager.yml'
                     }
