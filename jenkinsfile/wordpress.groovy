@@ -2,6 +2,7 @@ pipeline {
     agent any 
     
     environment {
+        DB_CREDENTIALS = credentials('maria-db')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
@@ -94,18 +95,11 @@ pipeline {
             }
         }
 
-        //stage('TLS') {
-            //steps {
-                //script {
-                    //dir('projet-raja/kubernetes') {
-                        //sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
-                        //sh 'kubectl apply -f middleware.yml'
-                        //sh 'sleep 120'
-                        //sh 'kubectl apply -f cert-manager.yml'
-                    //}
-                //}
-            //}
-        //}
+        stage('basicauth') {
+            steps {
+                script {
+                    sh 'sh curl -u $CREDENTIALS https://wordpress.raja-ch.me'
+                      
                         
 
     
