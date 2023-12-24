@@ -80,21 +80,26 @@ pipeline {
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
                       sh 'kubectl apply -f service-mysql.yml'
-                      sh 'kubectl apply -f middleware.yml'
                       sh 'kubectl apply -f pvc.yml'
-                      //sh 'kubectl apply -f basicauth.yml'
                       sh 'kubectl apply -f secret-mysql.yml'
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'
-                      sh 'kubectl create -f cert-manager.yml'
-                      //sh 'kubectl get svc -n cert-manager'
-                      //sh 'kubectl get pods -n cert-manager'
-                      //sh 'kubectl logs -n cert-manager cert-manager-webhook-6bc9944d78-qwgqv'  
-
                     }
                  }
             }
         }
+
+        stage('TLS') {
+            steps {
+                script {
+                    dir('projet-raja/kubernetes') {
+                        sh 'kubectl apply -f middleware.yml'
+                        sh 'kubectl create -f cert-manager.yml'
+                    }
+                }
+            }
+        }
+                        
 
     
         //stage('Recover IP Traefik') {
