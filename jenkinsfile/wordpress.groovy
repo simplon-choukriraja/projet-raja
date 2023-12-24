@@ -84,9 +84,7 @@ pipeline {
                         sh 'kubectl apply -f deployment-mysql.yml'
                         sh 'kubectl apply -f ingress.yml'
                         sh 'kubectl apply -f service-mysql.yml'
-                        sh 'kubectl apply -f pvc.yml'  
-                        sh 'kubectl apply -f db-mysql.yml'
-                        sh 'kubectl apply -f db-mysql.yml'  
+                        sh 'kubectl apply -f pvc.yml'   
                         sh 'kubectl apply -f basicauth.yml'  
                         sh 'kubectl apply -f service-wp.yml'
                         sh 'kubectl apply -f storageclass.yml'
@@ -98,7 +96,9 @@ pipeline {
                         // Read and apply the secret
                         def secretMysql = readFile('secret-mysql.yml')
                         def secretFile = secretMysql.replaceAll('PLACEHOLDER', MYSQL_ROOT_PASSWORD)
-                        writeFile file: 'db-mysql.yml', text: secretFile  
+                        writeFile file: 'db-mysql.yml', text: secretFile 
+                        sh 'kubectl apply -f db-mysql.yml'  
+                        
                     }
                  }
             }
