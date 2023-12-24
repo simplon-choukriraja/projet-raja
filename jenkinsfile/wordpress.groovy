@@ -26,6 +26,7 @@ pipeline {
                 // Eseguire l'autenticazione ad Azure utilizzando le credenziali di servizio
                       withCredentials([azureServicePrincipal(credentialsId: 'AzureServicePrincipal')]) {
                         sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                      
                     }
                 }
             }
@@ -99,7 +100,7 @@ pipeline {
                         sh 'sleep 120'
                         sh 'kubectl apply -f cert-manager.yml'
                         sh 'kubectl apply -f ingress.yml'
-                        
+                        } 
                     }
                  }
             }
