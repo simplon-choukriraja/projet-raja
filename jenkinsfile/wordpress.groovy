@@ -78,7 +78,6 @@ pipeline {
                 script {
                      dir('projet-raja/kubernetes') { 
                        withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'),
-                        // Create the namespace, apply the manifests
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
@@ -93,9 +92,8 @@ pipeline {
                         sh 'sleep 120'
                         sh 'kubectl apply -f cert-manager.yml'
                         sh 'kubectl apply -f ingress.yml'
-                        } 
-                    }
-                 }
+                      }
+                  }
             }
         }
 
