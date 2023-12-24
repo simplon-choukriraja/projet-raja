@@ -89,6 +89,7 @@ pipeline {
                       //sh 'kubectl apply -f cert-manager.yml'
                       //sh 'kubectl get pod -n wordpress'
                       sh 'kubectl describe pod -n wordpress'
+                      sh 'kubectl get pvc -n wordpress'  
                           
                     }
                  }
