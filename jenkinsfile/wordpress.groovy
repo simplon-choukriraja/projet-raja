@@ -83,6 +83,11 @@ pipeline {
                       sh 'kubectl apply -f secret-mysql.yml'
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'
+                      sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
+                      sh 'kubectl apply -f middleware.yml'
+                      sh 'sleep 120'
+                      sh 'kubectl apply -f cert-manager.yml'
+                      sh 'sh kubectl apply -f ingress.yml'
                     }
                  }
             }
