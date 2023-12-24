@@ -103,8 +103,6 @@ pipeline {
             }
         }
                       
-                        
-
     
         //stage('Recover IP Traefik') {
             //steps {
