@@ -79,15 +79,15 @@ pipeline {
             steps {
                 script {
                      dir('projet-raja/kubernetes') { 
-                       withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD')]) {
+                       withCredentials([usernamePassword(credentialsId: 'MYSQL_ROOT_PASSWORD', passwordVariable: 'MYSQL_ROOT_PASSWORD')]) {
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
+                        sh "sed -i s/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: \$MYSQL_ROOT_PASSWORD/ secret-mysql.yml"
+                        sh 'kubectl apply -f secret-mysql.yml' 
                         sh 'kubectl apply -f ingress.yml'
                         sh 'kubectl apply -f service-mysql.yml'
-                        sh 'kubectl apply -f pvc.yml'
-                        sh "sed -i 's/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yml" 
-                        sh 'kubectl apply -f secret-mysql.yml'   
+                        sh 'kubectl apply -f pvc.yml'  
                         sh 'kubectl apply -f service-wp.yml'
                         sh 'kubectl apply -f storageclass.yml'
                         sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
