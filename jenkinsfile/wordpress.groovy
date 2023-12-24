@@ -76,8 +76,7 @@ pipeline {
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
                 script {
-                    dir('projet-raja/kubernetes') {
-                      dir('projet-raja/kubernetes') {
+                     dir('projet-raja/kubernetes') {
                         // Create the namespace, apply the manifests
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'  
