@@ -2,7 +2,9 @@ pipeline {
     agent any 
     
     environment {
-        DB_CREDENTIALS = credentials('maria-db')
+        
+        MYSQL_ROOT_PASSWORD = credentials('mysql-root-password')
+        CREDENTIALS = credentials('basicauth')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
