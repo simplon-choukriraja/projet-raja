@@ -86,6 +86,7 @@ pipeline {
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'  
                       sh 'kubectl apply -f cert-manager.yml'
+                      sh 'kubectl get pod -n wordpress'
                           
                     }
                  }
