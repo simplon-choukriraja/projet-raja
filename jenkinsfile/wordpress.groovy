@@ -79,20 +79,19 @@ pipeline {
             steps {
                 script {
                      dir('projet-raja/kubernetes') { 
+                       withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'),
+                                        string(credentialsId: 'authsecret-user', variable: 'USER'),
+                                        string(credentialsId: 'authsecret-password', variable: 'PASSWORD')]) {
                         // Create the namespace, apply the manifests
                         sh 'kubectl create namespace wordpress'  
-                        sh 'kubectl apply -f deployment-wp.yml'  
+                        sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
                         sh 'kubectl apply -f ingress.yml'
                         sh 'kubectl apply -f service-mysql.yml'
                         sh 'kubectl apply -f pvc.yml'
-                          // Read and apply the secret
-                        withCredentials([string(credentialsId: 'pass', variable: 'MYSQL_ROOT_PASSWORD)]) {
-                            echo "password is '${MYSQL_ROOT_PASSWORD }'!"
-                        sh 'kubectl apply -f secret-mysql.yml' 
-                          // Write the secret to a file
-                        writeFile file: 'authsecret.yml', text: secretYaml 
-                        sh 'kubectl apply -f authsecret.yml' 
+                        sh "sed -i 's/password: passwordmysql/password: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yaml" 
+                        sh "sed -i 's/user: basicauth/user: ${USER}/' authsecret.yml"
+                        sh "sed -i 's/password: passwordwp/password: ${PASSWORD'}/' authsecret.yml"
                         sh 'kubectl apply -f service-wp.yml'
                         sh 'kubectl apply -f storageclass.yml'
                         sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
