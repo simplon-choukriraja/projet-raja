@@ -79,7 +79,7 @@ pipeline {
             steps {
                 script {
                      dir('projet-raja/kubernetes') { 
-                       withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', passwordVariable: 'MYSQL_ROOT_PASSWORD')]) {
+                       withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD')]) {
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
