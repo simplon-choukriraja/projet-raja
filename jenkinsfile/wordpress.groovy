@@ -87,7 +87,7 @@ pipeline {
                       sh 'kubectl apply -f middleware.yml'
                       sh 'sleep 120'
                       sh 'kubectl apply -f cert-manager.yml'
-                      sh 'sh kubectl apply -f ingress.yml'
+                      sh 'kubectl apply -f ingress.yml'
                     }
                  }
             }
