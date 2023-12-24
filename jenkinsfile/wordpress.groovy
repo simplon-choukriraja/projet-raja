@@ -35,16 +35,16 @@ pipeline {
             }
         }
 
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('projet-raja/terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
-                    //}
-                 //}
-             //}
-        //}
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('projet-raja/terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                 }
+             }
+        }
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -95,6 +95,7 @@ pipeline {
                     dir('projet-raja/kubernetes') {
                         sh 'kubectl apply -f middleware.yml'
                         sh 'kubectl apply -f wait-pod.yml'
+                        sh 'sleep 120'
                         sh 'kubectl apply -f cert-manager.yml'
                     }
                 }
