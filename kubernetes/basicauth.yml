@@ -7,3 +7,13 @@ spec:
   basicAuth:
     removeHeader: false
     secret: authsecret
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authsecret
+data:
+  users: ${secret}
+    
