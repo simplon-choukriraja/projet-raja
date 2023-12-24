@@ -80,7 +80,7 @@ pipeline {
                 script {
                      dir('projet-raja/kubernetes') { 
                        withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD')]) {
-                        //sh 'kubectl create namespace wordpress'  
+                        sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
                         sh 'kubectl apply -f ingress.yml'
@@ -126,17 +126,7 @@ pipeline {
             }
         }
 
-        //stage('Auth-Secret') {
-            //steps {
-                //script {
-                    //Accedi al cluster Kubernetes (assicurati che Jenkins abbia le credenziali appropriate)
-                    //e utilizza kubectl per ottenere il valore del secret
-                    //def username = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.username}' | base64 --decode", returnStdout: true).trim()
-                    //def password = sh(script: "kubectl get secret ${SECRET_NAME} -n ${NAMESPACE} -o=jsonpath='{.data.password}' | base64 --decode", returnStdout: true).trim()
-                    //sh 'curl -k ${username}:${password} https://wordpress.raja-ch.me'
-                //}
-            //}
-        //}
+        
         //stage ('Installation de Prometheus et Grafana via Helm') {
             //steps {
                 //script {
