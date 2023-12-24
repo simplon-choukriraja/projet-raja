@@ -13,12 +13,12 @@ pipeline {
     
     stages{
         
-        stage('Clean Workspace') {
-            steps {
+        //stage('Clean Workspace') {
+            //steps {
                 //This step deletes the entire workspace
-                deleteDir()
-            }
-        }
+                //deleteDir()
+            //}
+        //}
         
         stage('Azure Login') {
             steps {
@@ -86,7 +86,7 @@ pipeline {
                         sh 'kubectl apply -f ingress.yml'
                         sh 'kubectl apply -f service-mysql.yml'
                         sh 'kubectl apply -f pvc.yml'
-                        sh "sed -i 's/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yaml" 
+                        sh "sed -i 's/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yml" 
                         sh 'kubectl apply -f secret-mysql.yml'   
                         sh 'kubectl apply -f service-wp.yml'
                         sh 'kubectl apply -f storageclass.yml'
