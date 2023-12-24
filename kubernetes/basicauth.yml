@@ -15,5 +15,6 @@ kind: Secret
 metadata:
   name: authsecret
 data:
-  users: ${secret}
+  user: ${USER}
+  password: ${PASSWORD}
     
