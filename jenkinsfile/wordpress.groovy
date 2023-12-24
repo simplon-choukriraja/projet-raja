@@ -105,6 +105,7 @@ pipeline {
             steps {
                 script {
                     //Esegue il comando kubectl per ottenere l'indirizzo IP del LoadBalancer
+                    sh 'sleep 120'
                     def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
                     echo "L'indirizzo IP di Traefik è: ${traffikIP}"
                 }
