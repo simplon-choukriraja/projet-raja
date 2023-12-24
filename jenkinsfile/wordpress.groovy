@@ -89,17 +89,17 @@ pipeline {
             }
         }
 
-        stage('TLS') {
-            steps {
-                script {
-                    dir('projet-raja/kubernetes') {
-                        sh 'kubectl apply -f middleware.yml'
-                        sh 'sleep 120'
-                        sh 'kubectl apply -f cert-manager.yml'
-                    }
-                }
-            }
-        }
+        //stage('TLS') {
+            //steps {
+                //script {
+                    //dir('projet-raja/kubernetes') {
+                        //sh 'kubectl apply -f middleware.yml'
+                        //sh 'sleep 120'
+                        //sh 'kubectl apply -f cert-manager.yml'
+                    //}
+                //}
+            //}
+        //}
                         
 
     
