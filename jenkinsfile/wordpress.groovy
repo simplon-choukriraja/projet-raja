@@ -99,6 +99,9 @@ pipeline {
             steps {
                 script {
                     sh 'sh curl -u $CREDENTIALS https://wordpress.raja-ch.me'
+                }
+            }
+        }
                       
                         
 
