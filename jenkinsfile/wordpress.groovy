@@ -74,7 +74,7 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/kubernetes') {
-                      //sh 'kubectl create namespace wordpress'  
+                      sh 'kubectl create namespace wordpress'  
                       sh 'kubectl apply -f deployment-wp.yml'  
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
