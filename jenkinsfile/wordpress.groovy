@@ -83,7 +83,7 @@ pipeline {
                       sh 'kubectl apply -f ingress.yml'
                       sh 'kubectl apply -f service-mysql.yml'
                       sh 'kubectl apply -f pvc.yml'
-                      sh 'kubectl apply -f secret-mysql.yml'
+                      sh 'sh echo $MYSQL_ROOT_PASSWORD'
                       sh 'kubectl apply -f basicauth.yml'  
                       sh 'kubectl apply -f service-wp.yml'
                       sh 'kubectl apply -f storageclass.yml'
