@@ -83,7 +83,7 @@ pipeline {
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
-                        sh "sed -i s/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: \$MYSQL_ROOT_PASSWORD/ secret-mysql.yml"
+                        sh "sed -i s/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yml"
                         sh 'kubectl apply -f secret-mysql.yml' 
                         sh 'kubectl apply -f ingress.yml'
                         sh 'kubectl apply -f service-mysql.yml'
