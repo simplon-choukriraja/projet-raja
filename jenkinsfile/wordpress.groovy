@@ -15,7 +15,7 @@ pipeline {
         
         stage('Clean Workspace') {
             steps {
-                This step deletes the entire workspace
+                //This step deletes the entire workspace
                 deleteDir()
             }
         }
@@ -80,7 +80,7 @@ pipeline {
                 script {
                      dir('projet-raja/kubernetes') { 
                        withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD')]) {
-                        //sh 'kubectl create namespace wordpress'  
+                        sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
                         sh 'kubectl apply -f ingress.yml'
