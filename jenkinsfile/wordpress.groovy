@@ -74,8 +74,7 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/kubernetes') {
-                      sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml'
-                      sh 'kubectl create namespace wordpress'  
+                      //sh 'kubectl create namespace wordpress'  
                       sh 'kubectl apply -f deployment-wp.yml'  
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
@@ -93,6 +92,7 @@ pipeline {
             //steps {
                 //script {
                     //dir('projet-raja/kubernetes') {
+                        //sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
                         //sh 'kubectl apply -f middleware.yml'
                         //sh 'sleep 120'
                         //sh 'kubectl apply -f cert-manager.yml'
