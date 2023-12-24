@@ -35,16 +35,16 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                    }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                    //}
+                 //}
+             //}
+        //}
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -75,7 +75,7 @@ pipeline {
                 script {
                     dir('projet-raja/kubernetes') {
                       //sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
-                      sh 'kubectl create namespace wordpress'  
+                      //sh 'kubectl create namespace wordpress'  
                       sh 'kubectl apply -f deployment-wp.yml'  
                       sh 'kubectl apply -f deployment-mysql.yml'
                       sh 'kubectl apply -f ingress.yml'
