@@ -88,7 +88,7 @@ pipeline {
                       sh 'kubectl apply -f storageclass.yml'
                       sh 'kubectl delete pods -n cert-manager --all'
                       //sh 'kubectl apply -f cert-manager.yml'
-                      sh 'kubectl get svc -n cert-manager
+                      sh 'kubectl get svc -n cert-manager'
 '      
                     }
                  }
