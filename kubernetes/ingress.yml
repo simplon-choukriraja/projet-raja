@@ -4,8 +4,14 @@ metadata:
   name: wordpress-ingress
   namespace: wordpress
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: wordpress-redirect@kubernetescrd
+    cert-manager.io/issuer: cert-manager
 spec:
   ingressClassName: traefik
+  tls: 
+    - hosts: 
+        - wordpress.raja-ch.me
+      secretName: tls-cert-ingress-http
   rules:
     - host: wordpress.raja-ch.me
       http:
