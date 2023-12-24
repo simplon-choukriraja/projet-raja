@@ -86,9 +86,8 @@ pipeline {
                         sh 'kubectl apply -f service-mysql.yml'
                         sh 'kubectl apply -f pvc.yml'
                           // Read and apply the secret
-                        def secretMysql = readFile('secret-mysql.yml')
-                        def secretFile = secretMysql.replaceAll('PLACEHOLDER', MYSQL_ROOT_PASSWORD)
-                        writeFile file: 'secret-mysql.yml', text: secretFile 
+                        withCredentials([string(credentialsId: 'pass', variable: 'MYSQL_ROOT_PASSWORD)]) {
+                            echo "password is '${MYSQL_ROOT_PASSWORD }'!"
                         sh 'kubectl apply -f secret-mysql.yml' 
                           // Write the secret to a file
                         writeFile file: 'authsecret.yml', text: secretYaml 
