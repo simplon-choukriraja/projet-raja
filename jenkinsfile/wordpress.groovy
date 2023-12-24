@@ -4,8 +4,6 @@ pipeline {
     environment {
         
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-password')
-        USER = credentials('authsecret-user')
-        PASSWORD = credentials('authsecret-password')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
@@ -80,8 +78,6 @@ pipeline {
                 script {
                      dir('projet-raja/kubernetes') { 
                        withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'),
-                                        string(credentialsId: 'authsecret-user', variable: 'USER'),
-                                        string(credentialsId: 'authsecret-password', variable: 'PASSWORD')]) {
                         // Create the namespace, apply the manifests
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
@@ -90,8 +86,6 @@ pipeline {
                         sh 'kubectl apply -f service-mysql.yml'
                         sh 'kubectl apply -f pvc.yml'
                         sh "sed -i 's/password: passwordmysql/password: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yaml" 
-                        sh "sed -i 's/user: basicauth/user: ${USER}/' authsecret.yml"
-                        sh "sed -i 's/password: passwordwp/password: ${PASSWORD'}/' authsecret.yml"
                         sh 'kubectl apply -f service-wp.yml'
                         sh 'kubectl apply -f storageclass.yml'
                         sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
