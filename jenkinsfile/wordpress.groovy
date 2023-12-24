@@ -89,8 +89,10 @@ pipeline {
                         def secretMysql = readFile('secret-mysql.yml')
                         def secretFile = secretMysql.replaceAll('PLACEHOLDER', MYSQL_ROOT_PASSWORD)
                         writeFile file: 'db-mysql.yml', text: secretFile 
-                        sh 'kubectl apply -f db-mysql.yml'  
-                        sh 'kubectl apply -f basicauth.yml'  
+                        sh 'kubectl apply -f db-mysql.yml' 
+                          // Write the secret to a file
+                        writeFile file: 'authsecret.yml', text: secretYaml 
+                        sh 'kubectl apply -f authsecret.yml' 
                         sh 'kubectl apply -f service-wp.yml'
                         sh 'kubectl apply -f storageclass.yml'
                         sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
@@ -104,14 +106,6 @@ pipeline {
             }
         }
 
-        stage('basicauth') {
-            steps {
-                script {
-                    sh "curl -u $CREDENTIALS https://wordpress.raja-ch.me"
-                }
-            }
-        }
-                      
     
         //stage('Recover IP Traefik') {
             //steps {
