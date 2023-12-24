@@ -89,7 +89,7 @@ pipeline {
                       //sh 'kubectl apply -f cert-manager.yml'
                       sh 'kubectl get svc -n cert-manager'
                       sh 'kubectl get pods -n cert-manager'
-                      sh 'kubectl logs -n cert-manager cert-manager-75997f4b44-l44kt'  
+                      sh 'kubectl logs -n cert-manager cert-manager-webhook-6bc9944d78-qwgqv'  
 
                     }
                  }
