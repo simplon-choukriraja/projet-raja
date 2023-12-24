@@ -40,16 +40,16 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                     }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                     //}
+                 //}
+             //}
+        //}
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -79,7 +79,7 @@ pipeline {
             steps {
                 script {
                      dir('projet-raja/kubernetes') { 
-                       withCredentials([usernamePassword(credentialsId: 'MYSQL_ROOT_PASSWORD', passwordVariable: 'MYSQL_ROOT_PASSWORD')]) {
+                       withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', passwordVariable: 'MYSQL_ROOT_PASSWORD')]) {
                         sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
