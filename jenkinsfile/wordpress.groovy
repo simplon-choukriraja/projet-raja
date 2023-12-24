@@ -112,20 +112,20 @@ pipeline {
             }
         } 
 
-        //stage('Mettre à jour l enregistrement DNS sur Gandi') {
-            //steps {
-                //script {
+        stage('Mettre à jour l enregistrement DNS sur Gandi') {
+            steps {
+                script {
                      //Utilizza l'API di Gandi per aggiornare il record DNS
-                        //withCredentials([azureServicePrincipal(credentialsId: 'GANDI_API_KEY', variable: 'API_KEY')]) {
-                        //sh ('''
-                        //curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                        //-d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
-                        //https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
-                        //''')
-                    //}
-                //}
-            //}
-        //}
+                        withCredentials([azureServicePrincipal(credentialsId: 'GANDI_API_KEY', variable: 'GANDI_API_KEY')]) {
+                        sh ('''
+                        curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                        -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
+                        https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
+                        ''')
+                    }
+                }
+            }
+        }
 
         //stage('Auth-Secret') {
             //steps {
