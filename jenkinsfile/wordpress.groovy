@@ -77,25 +77,28 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/kubernetes') {
-                      sh 'kubectl create namespace wordpress'  
-                      sh 'kubectl apply -f deployment-wp.yml'  
-                      sh 'kubectl apply -f deployment-mysql.yml'
-                      sh 'kubectl apply -f ingress.yml'
-                      sh 'kubectl apply -f service-mysql.yml'
-                      sh 'kubectl apply -f pvc.yml'
-                        //Deploy Secret
-                      def secretMysql = readFile('path/to/secret-mysql.yml')
-                      def secretFile = secretMysql.replaceAll('PLACEHOLDER', MYSQL_ROOT_PASSWORD)
-                      writeFile file: 'db-mysql.yml', text: secretFile  
-                      sh 'kubectl apply -f db-mysql.yml'  
-                      sh 'kubectl apply -f basicauth.yml'  
-                      sh 'kubectl apply -f service-wp.yml'
-                      sh 'kubectl apply -f storageclass.yml'
-                      sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
-                      sh 'kubectl apply -f middleware.yml'
-                      sh 'sleep 120'
-                      sh 'kubectl apply -f cert-manager.yml'
-                      sh 'kubectl apply -f ingress.yml'
+                      dir('projet-raja/kubernetes') {
+                        // Create the namespace, apply the manifests
+                        sh 'kubectl create namespace wordpress'  
+                        sh 'kubectl apply -f deployment-wp.yml'  
+                        sh 'kubectl apply -f deployment-mysql.yml'
+                        sh 'kubectl apply -f ingress.yml'
+                        sh 'kubectl apply -f service-mysql.yml'
+                        sh 'kubectl apply -f pvc.yml'  
+                        sh 'kubectl apply -f db-mysql.yml'
+                        sh 'kubectl apply -f db-mysql.yml'  
+                        sh 'kubectl apply -f basicauth.yml'  
+                        sh 'kubectl apply -f service-wp.yml'
+                        sh 'kubectl apply -f storageclass.yml'
+                        sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
+                        sh 'kubectl apply -f middleware.yml'
+                        sh 'sleep 120'
+                        sh 'kubectl apply -f cert-manager.yml'
+                        sh 'kubectl apply -f ingress.yml'
+                        // Read and apply the secret
+                        def secretMysql = readFile('secret-mysql.yml')
+                        def secretFile = secretMysql.replaceAll('PLACEHOLDER', MYSQL_ROOT_PASSWORD)
+                        writeFile file: 'db-mysql.yml', text: secretFile  
                     }
                  }
             }
