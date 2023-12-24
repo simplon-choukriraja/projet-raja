@@ -39,16 +39,16 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                     }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                     //}
+                 //}
+             //}
+        //}
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -88,8 +88,8 @@ pipeline {
                           // Read and apply the secret
                         def secretMysql = readFile('secret-mysql.yml')
                         def secretFile = secretMysql.replaceAll('PLACEHOLDER', MYSQL_ROOT_PASSWORD)
-                        writeFile file: 'db-mysql.yml', text: secretFile 
-                        sh 'kubectl apply -f db-mysql.yml' 
+                        writeFile file: 'secret-mysql.yml', text: secretFile 
+                        sh 'kubectl apply -f secret-mysql.yml' 
                           // Write the secret to a file
                         writeFile file: 'authsecret.yml', text: secretYaml 
                         sh 'kubectl apply -f authsecret.yml' 
