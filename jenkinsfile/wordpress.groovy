@@ -40,16 +40,16 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                     }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                     //}
+                 //}
+             //}
+        //}
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -80,7 +80,7 @@ pipeline {
                 script {
                      dir('projet-raja/kubernetes') { 
                        withCredentials([string(credentialsId: 'mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD')]) {
-                        sh 'kubectl create namespace wordpress'  
+                        //sh 'kubectl create namespace wordpress'  
                         sh 'kubectl apply -f deployment-wp.yml'
                         sh 'kubectl apply -f deployment-mysql.yml'
                         sh 'kubectl apply -f ingress.yml'
@@ -102,15 +102,15 @@ pipeline {
         }
 
     
-        //stage('Recover IP Traefik') {
-            //steps {
-                //script {
+        stage('Recover IP Traefik') {
+            steps {
+                script {
                     //Esegue il comando kubectl per ottenere l'indirizzo IP del LoadBalancer
-                    //def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                    //echo "L'indirizzo IP di Traefik è: ${traffikIP}"
-                //}
-            //}
-        //} 
+                    def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                    echo "L'indirizzo IP di Traefik è: ${traffikIP}"
+                }
+            }
+        } 
 
         //stage('Mettre à jour l enregistrement DNS sur Gandi') {
             //steps {
