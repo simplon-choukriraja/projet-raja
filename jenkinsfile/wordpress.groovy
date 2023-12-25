@@ -150,7 +150,7 @@ pipeline {
                             -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${traffikIP}\\"]}' \\
                             https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                         """
-                        
+                    }    
                 }
             }
         }
