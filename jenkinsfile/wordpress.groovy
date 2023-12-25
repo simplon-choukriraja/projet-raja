@@ -106,29 +106,29 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                     script {
-                            def traffikIP = ''
-                            def maxAttempts = 30 // Numero massimo di tentativi
-                            def attempt = 0
+                        def traffikIP = ''
+                        def maxAttempts = 30 // Numero massimo di tentativi
+                        def attempt = 0
 
-                            echo "In attesa dell'indirizzo IP di Traefik..."
+                        echo "In attesa dell'indirizzo IP di Traefik..."
 
-                            // Loop di polling per recuperare l'indirizzo IP
-                            while (attempt < maxAttempts) {
-                                traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                        // Loop di polling per recuperare l'indirizzo IP
+                         while (attempt < maxAttempts) {
+                             traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
             
-                                if (traffikIP) {
-                                    echo "L'indirizzo IP di Traefik è: ${traffikIP}"
-                                    writeFile file: 'traffik_ip.txt', text: traffikIP
-                                    break
-                                }
-
-                                attempt++
-                                sleep(time: 10, unit: 'SECONDS') // Attesa di 10 secondi tra i tentativi
+                            if (traffikIP) {
+                                echo "L'indirizzo IP di Traefik è: ${traffikIP}"
+                                writeFile file: 'traffik_ip.txt', text: traffikIP
+                                break
                             }
 
-                            if (!traffikIP) {
-                                error("Traefik IP address not found after ${maxAttempts} attempts. Check Traefik service configuration.")
-                            }
+                            attempt++
+                            sleep(time: 10, unit: 'SECONDS') // Attesa di 10 secondi tra i tentativi
+                        }
+
+                        if (!traffikIP) {
+                             error("Traefik IP address not found after ${maxAttempts} attempts. Check Traefik service configuration.")
+                        }
                         
                 }
             }
