@@ -122,7 +122,7 @@ pipeline {
                 script {
                     def TRAFFIK_IP = readFile('traffik_ip.txt').trim()
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
-                        sh 'API_KEY='
+                        sh 'API_KEY=GANDI_API_KEY'
                         sh """
                             curl -X PUT -H 'Content-Type: application/json' 
                                 -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
