@@ -130,7 +130,7 @@ pipeline {
                                 -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${TRAFFIK_IP}\\"]}' \\
                             https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                         """
-                        GANDI_API_KEY= 'export API_KEY="${GANDI_API_KEY}"'
+                    
                     }    
                 }
             }
