@@ -40,16 +40,16 @@ pipeline {
             }
         }
 
-        //stage('Run Terraform Commands') {
-            //steps {
-                //script {
-                    //dir('projet-raja/terraform') {
-                        //sh 'terraform init'
-                        //sh 'terraform apply -auto-approve'
-                     //}
-                 //}
-             //}
-        //}
+        stage('Run Terraform Commands') {
+            steps {
+                script {
+                    dir('projet-raja/terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                     }
+                 }
+             }
+        }
 
         stage('Add az get-credentials Kubernetes') {
             steps {
@@ -78,22 +78,27 @@ pipeline {
         stage('Deploy App Wordpress end MariaDB with k8s') {
             steps {
                 script {
+                   withCredentials([string(credentialsId: 'password', variable: 'MYSQL_ROOT_PASSWORD')]) { 
                      dir('projet-raja/kubernetes') { 
-                       withCredentials([string(credentialsId: 'password', variable: 'MYSQL_ROOT_PASSWORD')]) {
-                        sh 'kubectl create namespace wordpress'  
-                        sh 'kubectl apply -f deployment-wp.yml'
-                        sh 'kubectl apply -f deployment-mysql.yml'
-                        sh "sed -i 's/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yml"
-                        sh 'kubectl apply -f secret-mysql.yml' 
-                        sh 'kubectl apply -f ingress.yml'
-                        sh 'kubectl apply -f service-mysql.yml'
-                        sh 'kubectl apply -f pvc.yml'  
-                        sh 'kubectl apply -f service-wp.yml'
-                        sh 'kubectl apply -f storageclass.yml'
-                        sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
-                        sh 'kubectl apply -f middleware.yml'
-                        sh 'sleep 120'
-                        sh 'kubectl apply -f cert-manager.yml'
+                          try {
+                            sh 'kubectl create namespace wordpress'  
+                            sh 'kubectl apply -f deployment-wp.yml'
+                            sh 'kubectl apply -f deployment-mysql.yml'
+                            sh "sed -i 's/MYSQL_ROOT_PASSWORD: passwordmysql/MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}/' secret-mysql.yml"
+                            sh 'kubectl apply -f secret-mysql.yml' 
+                            sh 'kubectl apply -f ingress.yml'
+                            sh 'kubectl apply -f service-mysql.yml'
+                            sh 'kubectl apply -f pvc.yml'  
+                            sh 'kubectl apply -f service-wp.yml'
+                            sh 'kubectl apply -f storageclass.yml'
+                            sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
+                            sh 'kubectl apply -f middleware.yml'
+                            sh 'sleep 120'
+                            sh 'kubectl apply -f cert-manager.yml'
+                          } catch (Exception ex) {
+                            currentBuild.result = 'FAILURE'
+                            error("Error during command execution: ${ex.message}")
+                          }
                        } 
                     }
                 }
