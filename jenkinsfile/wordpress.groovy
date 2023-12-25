@@ -118,7 +118,6 @@ pipeline {
         stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
-                    def TRAFFIK_IP = readFile('traffik_ip.txt').trim()
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                         sh """
                             curl -X PUT -H 'Content-Type: application/json' 
