@@ -107,9 +107,12 @@ pipeline {
             steps {
                 script {
                     def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                    echo "L'indirizzo IP di Traefik è: ${traffikIP}"
-                    // Writes the IP address to a temporary file
-                    writeFile file: 'traffik_ip.txt', text: traffikIP
+                    if (traffikIP) {
+                        echo "The IP address of Traefik is: ${traffikIP}"
+                        writeFile file: 'traffik_ip.txt', text: traffikIP
+                    } else {
+                      error("Traefik IP address not found. Check Traefik service configuration.")
+                    }
                 }
              }
         }
@@ -118,15 +121,24 @@ pipeline {
         stage('Updating DNS Record on Gandi for Traefik') {
             steps {
                 script {
-                    // Reads the IP address from the temporary file
-                        def traffikIP = readFile('traffik_ip.txt').trim()
+                    def traffikIP = readFile('traffik_ip.txt').trim()
+                    if  (!traffikIP) {
+                        error("Traefik IP address read from the file is empty. Unable to proceed with DNS update.")
+                    }
                         withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
-                            sh """
-                                curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                                -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${traffikIP}\"]}' \\
-                                https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
-                             """
+                            try {
+                                def response = sh(script: """
+                                    curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                                    -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${traffikIP}\\"]}' \\
+                                    https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
+                                """, returnStdout: true).trim()
+                                echo "Response from Gandi API: ${response}"
+                            } catch (Exception e) {
+                                error("Error updating DNS record on Gandi: ${e.message}")
+                            }
+                            
                          }
+                    
                  }
              }
         }
