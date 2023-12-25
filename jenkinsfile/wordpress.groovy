@@ -5,6 +5,7 @@ pipeline {
         
         MYSQL_ROOT_PASSWORD = credentials('password')
         GANDI_API_KEY = credentials('API_KEY')
+        TRAFFIK_IP = 'traffikIP'
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
@@ -106,8 +107,8 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                     script {
-                        def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                         echo "L'indirizzo IP di Traefik è: ${traffikIP}"
+                         TRAFFIK_IP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                         echo "L'indirizzo IP di Traefik è: ${TRAFFIK_IP}"
                         
                 }
             }
@@ -118,8 +119,9 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                         sh """
-                            curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                            -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${traffikIP}\\"]}' \\
+                            curl -X PUT -H 'Content-Type: application/json' 
+                                -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                                -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${TRAFFIK_IP}\\"]}' \\
                             https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                         """
                     }    
