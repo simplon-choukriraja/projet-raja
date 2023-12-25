@@ -121,8 +121,6 @@ pipeline {
         stage('Updating DNS Record on Gandi for Traefik') {
             steps {
                 script {
-                    // Reads the IP address from a temporary file
-                        def traffikIP = readFile('traffik_ip.txt').trim()
                      //Utilizza l'API di Gandi per aggiornare il record DNS
                         withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                             sh """
