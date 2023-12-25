@@ -110,6 +110,7 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                 script {
+                    sh 'sleep 120'
                     def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
                     echo "The IP address of Traefik is: ${traffikIP}"
 
