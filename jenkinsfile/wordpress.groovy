@@ -111,6 +111,9 @@ pipeline {
                          def TRAFFIK_IP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
                          echo "L'indirizzo IP di Traefik è: ${TRAFFIK_IP}"
                         
+                        // Salva l'IP in un file temporaneo per utilizzarlo nello stage successivo
+                         writeFile file: 'traffik_ip.txt', text: TRAFFIK_IP
+                        
                 }
             }
         } 
@@ -118,6 +121,7 @@ pipeline {
         stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
+                    def TRAFFIK_IP = readFile('traffik_ip.txt').trim()
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                         sh 'API_KEY='
                         sh """
