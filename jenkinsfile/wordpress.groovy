@@ -96,9 +96,6 @@ pipeline {
                             sh 'kubectl apply -f middleware.yml'
                             sh 'sleep 120'
                             sh 'kubectl apply -f cert-manager.yml'
-                          } catch (Exception ex) {
-                            currentBuild.result = 'FAILURE'
-                            error("Error during command execution: ${ex.message}")
                           }
                        } 
                     }
