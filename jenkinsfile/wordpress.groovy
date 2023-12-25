@@ -4,7 +4,6 @@ pipeline {
     environment {
         
         MYSQL_ROOT_PASSWORD = credentials('password')
-        TRAFFIK_IP = traffikIP
         GANDI_API_KEY = credentials('API_KEY')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
@@ -125,7 +124,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                             sh """
                                 curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                                -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${TRAFFIK_IP}\"]}' \\
+                                -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${traffikIP}\"]}' \\
                                 https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                              """
                          }
