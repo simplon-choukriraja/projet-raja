@@ -110,8 +110,18 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                 script {
-                    sh 'sleep 120'
-                    def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                    def maxAttempts = 12
+                    def attempts = 0
+                    def traffikIP = ''
+
+                    while (attempts < maxAttempts) {
+                        traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                        if (traffikIP) {
+                            break
+                        }
+                        sh 'sleep 10'
+                        attempts++
+                    }
                     echo "The IP address of Traefik is: ${traffikIP}"
 
                     // Writes the IP address to a temporary file
