@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         
-        MYSQL_ROOT_PASSWORD = credentials('mysql-root-password')
+        MYSQL_ROOT_PASSWORD = credentials('password')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
