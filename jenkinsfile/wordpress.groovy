@@ -4,6 +4,7 @@ pipeline {
     environment {
         
         MYSQL_ROOT_PASSWORD = credentials('password')
+        TRAFFIK_IP = 'traffikIP'
         GANDI_API_KEY = credentials('API_KEY')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
