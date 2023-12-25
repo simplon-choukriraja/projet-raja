@@ -62,7 +62,7 @@ pipeline {
              }
         }
         
-        stage('Traefik avec Helm') {
+        stage('Implementation of Traefik Using Helm') {
             steps {
                 script {
                     dir('projet-raja/kubernetes') {
