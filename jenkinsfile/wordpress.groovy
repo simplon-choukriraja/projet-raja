@@ -121,7 +121,7 @@ pipeline {
             steps {
                 script {
                      //Utilizza l'API di Gandi per aggiornare il record DNS
-                        withCredentials([string(credentialsId: 'GANDI_API_KEY', variable: 'GANDI_API_KEY')]) {
+                        withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                         sh ('''
                         curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
                         -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
