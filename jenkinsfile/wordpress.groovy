@@ -116,13 +116,6 @@ pipeline {
         stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
-                    // Reads the IP address from a temporary file
-                    def traffikIP = readFile('traffik_ip.txt').trim()
-
-                    if (!traffikIP) {
-                        error("The Traefik IP address read from the file is empty. Unable to proceed with the DNS update.")
-                    }
-
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                         sh """
                             curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
