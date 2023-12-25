@@ -6,6 +6,7 @@ pipeline {
         MYSQL_ROOT_PASSWORD = credentials('password')
         GANDI_API_KEY = credentials('API_KEY')
         TRAFFIK_IP = 'traffikIP'
+        GANDI_API = 'GANDI_API_KEY'
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
@@ -117,13 +118,14 @@ pipeline {
         stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
+                    withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API')]) {
                         sh """
                             curl -X PUT -H 'Content-Type: application/json' 
                                 -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
                                 -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${TRAFFIK_IP}\\"]}' \\
                             https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                         """
+                        GANDI_API = 'GANDI_API_KEY'
                     }    
                 }
             }
