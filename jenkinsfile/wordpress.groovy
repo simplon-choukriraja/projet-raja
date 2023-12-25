@@ -4,6 +4,7 @@ pipeline {
     environment {
         
         MYSQL_ROOT_PASSWORD = credentials('password')
+        GANDI_API_KEY = credentials('API_KEY')
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
         DNS_ZONE = 'raja-ch.me'
