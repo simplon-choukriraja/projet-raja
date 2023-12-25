@@ -118,7 +118,7 @@ pipeline {
             }
         } 
 
-        stage('Mettre à jour l enregistrement DNS sur Gandi') {
+        stage('Updating DNS Record on Gandi for Traefik') {
             steps {
                 script {
                      //Utilizza l'API di Gandi per aggiornare il record DNS
