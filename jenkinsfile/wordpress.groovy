@@ -134,7 +134,7 @@ pipeline {
             }
         } 
 
-        stage('Mettre à jour l'enregistrement DNS sur Gandi') {
+        stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
                     // Reads the IP address from a temporary file
