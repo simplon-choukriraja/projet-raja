@@ -110,22 +110,8 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                 script {
-                    def maxAttempts = 12
-                    def attempts = 0
-                    def traffikIP = ''
-
-                    while (attempts < maxAttempts) {
-                        traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                        if (traffikIP) {
-                            break
-                        }
-                        sh 'sleep 10'
-                        attempts++
-                    }
-                    echo "The IP address of Traefik is: ${traffikIP}"
-
-                    // Writes the IP address to a temporary file
-                    writeFile file: 'traffik_ip.txt', text: traffikIP
+                    def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                    echo "L'indirizzo IP di Traefik è: ${traffikIP}"
                 }
              }
         }
@@ -139,10 +125,9 @@ pipeline {
                      //Utilizza l'API di Gandi per aggiornare il record DNS
                         withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                             sh """
-                                curl -X PUT -H "Content-Type: application/json" \
-                                -H "Authorization: Apikey \$GANDI_API_KEY" \
-                                -d '{"rrset_ttl": 10800,"rrset_values": ["${traffikIP}"]}' \
-                                "https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A"
+                                curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                                -d '{\"rrset_ttl\": 10800, \"rrset_values\": [\"${env.TRAFFIK_IP}\"]}' \\
+                                https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
                              """
                          }
                  }
