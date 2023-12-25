@@ -126,7 +126,7 @@ pipeline {
                         sh """
                             curl -X PUT -H 'Content-Type: application/json' 
                                 -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                                -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${TRAFFIK_IP}\\"]}' \\
+                                -d '{\\"rrset_values\\": [\\"${TRAFFIK_IP}\\"]}' \\
                             https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A
                         """
                     
