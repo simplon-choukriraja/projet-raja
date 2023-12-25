@@ -52,7 +52,7 @@ pipeline {
              }
         }
 
-        stage('Add az get-credentials Kubernetes') {
+        stage('Azure Credentials for Kubernetes Cluster Access') {
             steps {
                 script {
                     dir('kubernetes') {
