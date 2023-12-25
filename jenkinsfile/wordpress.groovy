@@ -110,29 +110,31 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                 script {
-                    //Esegue il comando kubectl per ottenere l'indirizzo IP del LoadBalancer
-                    sh 'sleep 120'
                     def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                    echo "L'indirizzo IP di Traefik è: ${traffikIP}"
+                    echo "The IP address of Traefik is: ${traffikIP}"
+
+                    // Set the IP address as an environment variable
+                    env.TRAFFIK_IP = traffikIP
                 }
-            }
-        } 
+             }
+        }
+ 
 
         stage('Updating DNS Record on Gandi for Traefik') {
             steps {
                 script {
                      //Utilizza l'API di Gandi per aggiornare il record DNS
                         withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
-                        sh ("""
-                        curl -X PUT \
-                             -H "Content-Type: application/json" \
-                             -H "Authorization: Apikey ${GANDI_API_KEY}" \
-                             -d '{"rrset_ttl": 10800, "rrset_values": ["'${env.traffikIP}'"]}' \
-                             "https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A"
-                        """)
-                    }
-                }
-            }
+                            sh ("""
+                                curl -X PUT \
+                                -H "Content-Type: application/json" \
+                                -H "Authorization: Apikey ${GANDI_API_KEY}" \
+                                -d '{"rrset_ttl": 10800, "rrset_values": ["${env.TRAFFIK_IP}"]}' \
+                                "https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A"
+                            """)
+                         }
+                 }
+             }
         }
 
         
