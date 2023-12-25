@@ -41,16 +41,16 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                     }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                     //}
+                 //}
+             //}
+        //}
 
         stage('Azure Credentials for Kubernetes Cluster Access') {
             steps {
