@@ -103,15 +103,7 @@ pipeline {
         }
 
     
-        stage('Recover IP Traefik') {
-            steps {
-                script {
-                    def traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                    if (traffikIP) {
-                        echo "The IP address of Traefik is: ${traffikIP}"
-                        writeFile file: 'traffik_ip.txt', text: traffikIP
-                    } else {
-                      error("Traefik IP address not found. Check Traefik service configuration.")
+        
                     }
                 }
              }
@@ -121,23 +113,31 @@ pipeline {
         stage('Updating DNS Record on Gandi for Traefik') {
             steps {
                 script {
-                    def traffikIP = readFile('traffik_ip.txt').trim()
-                    if  (!traffikIP) {
-                        error("Traefik IP address read from the file is empty. Unable to proceed with DNS update.")
+                        def traffikIP = ''
+                        def maxAttempts = 30 // Numero massimo di tentativi
+                        def attempt = 0
+
+                        echo "In attesa dell'indirizzo IP di Traefik..."
+
+                        // Loop di polling per recuperare l'indirizzo IP
+                        while (attempt < maxAttempts) {
+                            traffikIP = sh(script: "kubectl get svc ${SERVICE_NAME} -n ${NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                
+                        if (traffikIP) {
+                            echo "L'indirizzo IP di Traefik è: ${traffikIP}"
+                            writeFile file: 'traffik_ip.txt', text: traffikIP
+                            break
+                        }
+
+                        attempt++
+                        sleep(time: 10, unit: 'SECONDS') // Attesa di 10 secondi tra i tentativi
                     }
-                        withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
-                            try {
-                                def response = sh(script: """
-                                    curl -X PUT -H 'Content-Type: application/json' -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                                    -d '{\\"rrset_ttl\\": 10800, \\"rrset_values\\": [\\"${traffikIP}\\"]}' \\
-                                    https://api.gandi.net/v5/livedns/domains/${DNS_ZONE}/records/${DNS_RECORD}/A
-                                """, returnStdout: true).trim()
-                                echo "Response from Gandi API: ${response}"
-                            } catch (Exception e) {
-                                error("Error updating DNS record on Gandi: ${e.message}")
-                            }
+
+                    if (!traffikIP) {
+                        error("Traefik IP address not found after ${maxAttempts} attempts. Check Traefik service configuration.")
+                    }
                             
-                         }
+                    }
                     
                  }
              }
