@@ -188,7 +188,7 @@ pipeline {
                             --create-namespace  
                             ''')
                                 //Verification of Namespace Creation
-                                sh 'kubectl get all -n monitoring'
+                                sh 'kubectl get -n projet-monitoring'
                                 sh 'kubectl get svc -n projet-monitoring'
 
                             }
