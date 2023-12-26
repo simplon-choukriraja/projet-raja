@@ -166,27 +166,31 @@ pipeline {
         //}
 
         
-        stage ('Installation de Prometheus et Grafana via Helm') {
+        stage ('Installation of Prometheus and Grafana via Helm'') {
             steps {
                 script {
-                    //Installation de Prometheus et Grafana via Helm
+                    //Installation of Helm
                     sh ('''
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
                     chmod 700 get_helm.sh
                     ./get_helm.sh
                     ''')
-                        // Ajout du repository pour Prometheus et Grafana, et mise à jour
+                        // Adding the repository for Prometheus and Grafana, and updating
                         sh ('''
                         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
                         helm repo update
                         ''')
-                            // Installation d'un Helm Chart dans un namespace monitoring
+                            // Installation of a Helm Chart in a namespace projet-monitoring
                             sh ('''
                             helm install prometheus \
                             prometheus-community/kube-prometheus-stack \
                             --namespace projet-monitoring \
                             --create-namespace  
                             ''')
+                                //Verification of Namespace Creation
+                                sh 'kubectl get all -n monitoring'
+                                sh 'kubectl get svc -n projet-monitoring'
+
                             }
                         }
                 } 
