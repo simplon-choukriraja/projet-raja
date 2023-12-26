@@ -118,7 +118,7 @@ pipeline {
                 script {
                     def TRAEFIK_IP= readFile('traefik_ip.txt').trim()
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
-                            def apiUrl = 'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
+                            def apiUrl = 'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/wordpress/A'
                             def response = sh(
                                 script: """
                                     echo "URL: ${apiUrl}"
