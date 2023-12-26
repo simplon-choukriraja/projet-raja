@@ -188,18 +188,25 @@ pipeline {
                             --namespace projet-monitoring \
                             --create-namespace  
                             ''')
-                                //Verification of Namespace Creation
-                                sh 'kubectl get -n projet-monitoring'
-                                sh 'kubectl get svc -n projet-monitoring'
-                                sh 'kubectl apply -f grafana.yml'
-                                sh 'kubectl apply -f prometheus.yml'
-                                sh 'kubectl apply -f service-grafana.yml'
-
+                      
                    }
                 }
             } 
         }    
-    }                    
+     
+
+        stage ('Installation of Prometheus and Grafana via Helm') {
+            steps {
+                script {
+                  dir('raja-projet/monitoring') { 
+                      sh 'kubectl apply -f grafana.yml -n projet-monitoring'
+                      sh 'kubectl apply -f prometheus.yml -n projet-monitoring'
+                      sh 'kubectl apply -f service-grafana.yml -n projet-monitoring'
+                  }
+                }
+            }
+        }
+                      
  
      //post {
         //always {
