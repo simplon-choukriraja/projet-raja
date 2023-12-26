@@ -145,7 +145,7 @@ pipeline {
                     dir('projet-raja/kubernetes') { 
                          Assicurati che il nome del file cert-manager.yml e il nome del certificato siano corretti
                          //Cancella il certificato esistente
-                        /sh 'kubectl delete -f cert-manager.yml -n wordpress'
+                        sh 'kubectl delete -f cert-manager.yml -n wordpress'
                         // Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
                         sleep(30)
 
