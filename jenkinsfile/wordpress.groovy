@@ -52,7 +52,7 @@ pipeline {
         stage('Configuration of Azure Credentials for Kubernetes Cluster Access') {
             steps {
                 script {
-                    dir('kubernetes') {
+                    dir('projet-raja/kubernetes') {
                     sh 'az aks get-credentials --name Akscluster-raja --resource-group projet --overwrite-existing'
                     }
                  }
