@@ -143,7 +143,7 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/kubernetes') { 
-                         Assicurati che il nome del file cert-manager.yml e il nome del certificato siano corretti
+                         //Assicurati che il nome del file cert-manager.yml e il nome del certificato siano corretti
                          //Cancella il certificato esistente
                         sh 'kubectl delete -f cert-manager.yml -n wordpress'
                         // Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
@@ -153,7 +153,7 @@ pipeline {
                         sh 'kubectl apply -f cert-manager.yml -n wordpress'
 
                         // Aspetta per il rinnovo/ricreazione del certificato
-                        sleep(120)
+                        sleep(60)
 
                         // Verifica lo stato del nuovo certificato
                         sh 'kubectl get certificates -n wordpress'
