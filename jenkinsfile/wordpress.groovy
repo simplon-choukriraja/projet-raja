@@ -169,7 +169,7 @@ pipeline {
         stage ('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
-                    dir('raja-proje/tmonitoring') { 
+                  dir('raja-projet/monitoring') { 
                     //Installation of Helm
                     sh ('''
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -198,8 +198,7 @@ pipeline {
                     }
                 }
             } 
-    
-        }                    
+    }                    
  
      //post {
         //always {
