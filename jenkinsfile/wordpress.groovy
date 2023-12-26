@@ -118,14 +118,11 @@ pipeline {
                 script {
                     def TRAEFIK_IP= readFile('traefik_ip.txt').trim()
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
-                         def apiUrl = 'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
                             sh """
-                                set -x
-                                echo "URL: ${apiUrl}"
                                 curl -X PUT -H 'Content-Type: application/json' \
-                                -H \"Authorization: Apikey ${GANDI_API_KEY}' \
+                                -H \'Authorization: Apikey ${GANDI_API_KEY}' \
                                 -d '{\\"rrset_values\\": [\\"${TRAEFIK_IP}\\"]}' \
-                                \${apiUrl}
+                                'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
                             """
                     
                     }    
