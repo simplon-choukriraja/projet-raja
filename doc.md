@@ -441,7 +441,7 @@ kubectl get all -n monitoring
 
 
 
-
+<img width="930" alt="Capture d’écran 2023-11-25 à 15 48 39" src="https://github.com/simplon-choukriraja/projet-raja/assets/108053084/11cb683a-9ccd-4c44-96dc-ac56e4dc70ef">
 
 
 
