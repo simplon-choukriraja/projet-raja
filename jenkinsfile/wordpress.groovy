@@ -199,7 +199,7 @@ pipeline {
             steps {
                 script {
                   dir('monitoring') { 
-                      sh 'la -a'
+                      sh 'ls -a' 
                       sh 'kubectl apply -f grafana.yml -n projet-monitoring'
                       sh 'kubectl apply -f prometheus.yml -n projet-monitoring'
                       sh 'kubectl apply -f service-grafana.yml -n projet-monitoring'
