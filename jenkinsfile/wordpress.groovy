@@ -166,33 +166,33 @@ pipeline {
         //}
 
         
-        //stage ('Installation of Prometheus and Grafana via Helm') {
-            //steps {
-                //script {
-                  //dir('raja-projet/monitoring') { 
+        stage ('Installation of Prometheus and Grafana via Helm') {
+            steps {
+                script {
+                  dir('raja-projet/monitoring') { 
                     //Installation of Helm
-                    //sh ('''
-                    //curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-                    //chmod 700 get_helm.sh
-                    //./get_helm.sh
-                    //''')
-                        // Adding the repository for Prometheus and Grafana, and updating
-                        //sh ('''
-                        //helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-                        //helm repo update
-                        //''')
-                            // Installation of a Helm Chart in a namespace projet-monitoring
-                            //sh ('''
-                            //helm install prometheus \
-                            //prometheus-community/kube-prometheus-stack \
-                            //--namespace projet-monitoring \
-                            //--create-namespace  
-                            //''')
+                    sh ('''
+                    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+                    chmod 700 get_helm.sh
+                    ./get_helm.sh
+                    ''')
+                         //Adding the repository for Prometheus and Grafana, and updating
+                        sh ('''
+                        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+                        helm repo update
+                        ''')
+                             //Installation of a Helm Chart in a namespace projet-monitoring
+                            sh ('''
+                            helm install prometheus \
+                            prometheus-community/kube-prometheus-stack \
+                            --namespace wordpress \
+                            --create-namespace  
+                            ''')
                       
                    //}
                 //}
-            //} 
-        //}    
+            } 
+        }    
      
 
         stage ('Installation of Prometheus and Grafana with kubernetes') {
@@ -200,9 +200,9 @@ pipeline {
                 script {
                   dir('projet-raja/monitoring') { 
                       sh 'az aks get-credentials --name Akscluster-raja --resource-group projet'
-                      sh 'kubectl apply -f grafana.yml'
-                      sh 'kubectl apply -f prometheus.yml'
-                      sh 'kubectl apply -f service-grafana.yml'
+                      sh 'kubectl delete -f grafana.yml'
+                      sh 'kubectl delete -f prometheus.yml'
+                      sh 'kubectl delete -f service-grafana.yml'
                   }
                 }
             }
