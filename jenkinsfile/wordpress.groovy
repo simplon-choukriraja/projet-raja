@@ -103,11 +103,11 @@ pipeline {
         stage('Recover IP Traefik') {
             steps {
                     script {
-                         def TRAFFIK_IP = sh(script: "kubectl get svc traefik -n default -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                         echo "L'indirizzo IP di Traefik è: ${TRAFFIK_IP}"
+                         def TRAEFIK_IP = sh(script: "kubectl get svc traefik -n default -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                         echo "L'indirizzo IP di Traefik è: ${TRAEFIK_IP}"
                         
                         // Salva l'IP in un file temporaneo per utilizzarlo nello stage successivo
-                         writeFile file: 'traffik_ip.txt', text: TRAFFIK_IP
+                         writeFile file: 'traefik_ip.txt', text: TRAEFIK_IP
                         
                 }
             }
