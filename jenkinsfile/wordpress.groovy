@@ -123,10 +123,9 @@ pipeline {
                                 set -x
                                 echo "URL: ${apiUrl}"
                                 curl -X PUT -H 'Content-Type: application/json' \\
-                                -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
+                                -H \"Authorization: Apikey \${GANDI_API_KEY}\" \\
                                 -d '{\\"rrset_values\\": [\\"${TRAEFIK_IP}\\"]}' \\
-                                ${apiUrl}
-                                
+                                \${apiUrl}
                             """
                     
                     }    
