@@ -169,6 +169,7 @@ pipeline {
         stage ('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
+                    dir('raja-proje/tmonitoring') { 
                     //Installation of Helm
                     sh ('''
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -190,12 +191,15 @@ pipeline {
                                 //Verification of Namespace Creation
                                 sh 'kubectl get -n projet-monitoring'
                                 sh 'kubectl get svc -n projet-monitoring'
+                                sh 'kubectl apply -f grafana.yml'
+                                sh 'kubectl apply -f prometheus.yml'
+                                sh 'kubectl apply -f service-grafana.yml'
 
-                            }
-                        }
+                         }
+                    }
                 } 
     
-    }                    
+        }                    
  
      //post {
         //always {
