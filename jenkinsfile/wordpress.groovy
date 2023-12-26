@@ -122,12 +122,11 @@ pipeline {
                             def response = sh(
                                 script: """
                                     set -x
-                                    echo 'URL: \${apiUrl}'
-                                    curl -X PUT -H 'Content-Type: application/json' \
-                                    -H \'Authorization: Apikey ${GANDI_API_KEY}' \
-                                    -d '{\\"rrset_values\\": [\\"${TRAEFIK_IP}\\"]}' \
-                                    'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
-                                    \${apiUrl}'
+                                    echo "URL: ${apiUrl}"
+                                    curl -X PUT -H "Content-Type: application/json" \\
+                                    -H "Authorization: Apikey ${GANDI_API_KEY}" \\
+                                    -d '{"rrset_values": ["${TRAEFIK_IP}"]}' \\
+                                    "${apiUrl}"
                                 """,
                                 returnStatus: true
                             )
