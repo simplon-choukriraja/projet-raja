@@ -166,7 +166,7 @@ pipeline {
         //}
 
         
-        stage ('Installation of Prometheus and Grafana via Helm'') {
+        stage ('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
                     //Installation of Helm
