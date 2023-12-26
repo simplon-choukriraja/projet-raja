@@ -129,7 +129,7 @@ pipeline {
                                     'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
                                     \${apiUrl}'
                                 """
-                                returnStatus: true
+                                returnStatus: true,
                             )
                             if (response == 0) {
                                 echo "DNS record updated successfully"
