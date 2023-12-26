@@ -5,7 +5,7 @@ pipeline {
         
         MYSQL_ROOT_PASSWORD = credentials('password')
         GANDI_API_KEY = credentials('API_KEY')
-        TRAFFIK_IP = 'traffikIP'
+        TRAEFIK_IP = 'traefikIP'
         NAMESPACE = 'wordpress'
         SERVICE_NAME = 'wordpress-service'
        
@@ -119,7 +119,7 @@ pipeline {
         stage('Mettre à jour l enregistrement DNS sur Gandi') {
             steps {
                 script {
-                    def TRAFFIK_IP = readFile('traffik_ip.txt').trim()
+                    def TRAEFIK_IP= readFile('traffik_ip.txt').trim()
                     withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                          def apiUrl = 'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
                             sh """
@@ -127,7 +127,7 @@ pipeline {
                                 echo "URL: ${apiUrl}"
                                 curl -X PUT -H 'Content-Type: application/json' \\
                                 -H 'Authorization: Apikey ${GANDI_API_KEY}' \\
-                                -d '{\\"rrset_values\\": [\\"${TRAFFIK_IP}\\"]}' \\
+                                -d '{\\"rrset_values\\": [\\"${TRAEFIK_IP}\\"]}' \\
                                 ${apiUrl}
                                 
                             """
