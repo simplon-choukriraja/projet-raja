@@ -157,6 +157,8 @@ pipeline {
 
                         // Verifica lo stato del nuovo certificato
                         sh 'kubectl get certificates -n wordpress'
+                        sh 'kubectl describe certificate tls-cert-ingress-http -n wordpress'
+
                         
                     }
                 }
