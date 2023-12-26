@@ -6,9 +6,6 @@ pipeline {
         MYSQL_ROOT_PASSWORD = credentials('password')
         GANDI_API_KEY = credentials('API_KEY')
         TRAEFIK_IP = 'traefikIP'
-        NAMESPACE = 'wordpress'
-        SERVICE_NAME = 'wordpress-service'
-       
         
     }
     
