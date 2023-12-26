@@ -199,11 +199,12 @@ pipeline {
             steps {
                 script {
                   dir('projet-raja/monitoring') { 
-                      sh 'az aks get-credentials --name Akscluster-raja --resource-group projet'
-                      sh 'kubectl create -f grafana.yml'
-                      sh 'kubectl create -f prometheus.yml'
-                      sh 'kubectl create -f service-grafana.yml'
-                      sh 'kubectl create -f service-prometheus.yml'
+                      //sh 'az aks get-credentials --name Akscluster-raja --resource-group projet'
+                      //sh 'kubectl create -f grafana.yml'
+                      //sh 'kubectl create -f prometheus.yml'
+                      //sh 'kubectl create -f service-grafana.yml'
+                      //sh 'kubectl create -f service-prometheus.yml'
+                      sh 'kubectl get pods -n wordpress'
                   }
                 }
             }
