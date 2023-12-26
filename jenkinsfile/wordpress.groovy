@@ -189,8 +189,8 @@ pipeline {
                             --create-namespace  
                             ''')
                       
-                   //}
-                //}
+                   }
+                }
             } 
         }    
      
