@@ -139,30 +139,21 @@ pipeline {
                 }
             }
         }
-        stage('Check TLS Certificate Status') {
+        stage('Rinnova Certificato TLS') {
             steps {
                 script {
-                    // Definisci il nome del certificato e il namespace
-                    def certName = "cert-manager"
-                    def namespace = "wordpress"
+                    // Cancella il certificato esistente
+                    sh 'kubectl delete -f cert-manager.yml -n wordpress'
 
-                    // Ottieni informazioni sul certificato
-                    sh "kubectl get certificate ${cert-manager} -n ${wordpress}"
+                    // Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
+                    sleep(30)
 
-                    // Ottieni la data di scadenza del certificato
-                    def expiryDate = sh(script: "kubectl get certificate ${cert-manager} -n ${wordpress} -o jsonpath='{.status.notAfter}'", returnStdout: true).trim()
-                    echo "Data di scadenza del certificato: ${expiryDate}"
+                    // (Opzionale) Ricrea la risorsa Certificate se necessario
+                    sh 'kubectl apply -f cert-manager.yml -n wordpress'
 
-                    // Confronta la data di scadenza con la data corrente
-                    def formatter = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
-                    def certExpiryDate = formatter.parse(expiryDate)
-                    def today = new Date()
-
-                    if (certExpiryDate.before(today)) {
-                        error "Il certificato è scaduto o sta per scadere. Verificare il rinnovo automatico tramite Cert-Manager."
-                    } else {
-                        echo "Il certificato è ancora valido."
-                    }
+                    // Verifica lo stato del nuovo certificato
+                    // Questo è un semplice comando di esempio, potrebbe essere necessario personalizzarlo
+                    sh 'kubectl get cert-manager.yml -n wordpress'
                 }
             }
         }
