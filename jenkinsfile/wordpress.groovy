@@ -200,9 +200,9 @@ pipeline {
                 script {
                   dir('projet-raja/monitoring') { 
                       sh 'az aks get-credentials --name Akscluster-raja --resource-group projet'
-                      sh 'kubectl apply -f grafana.yml -n projet-monitoring'
-                      sh 'kubectl apply -f prometheus.yml -n projet-monitoring'
-                      sh 'kubectl apply -f service-grafana.yml -n projet-monitoring'
+                      sh 'kubectl apply -f grafana.yml'
+                      sh 'kubectl apply -f prometheus.yml'
+                      sh 'kubectl apply -f service-grafana.yml'
                   }
                 }
             }
