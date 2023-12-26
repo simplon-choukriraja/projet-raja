@@ -121,7 +121,6 @@ pipeline {
                             def apiUrl = 'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/www/A'
                             def response = sh(
                                 script: """
-                                    set -x
                                     echo "URL: ${apiUrl}"
                                     curl -X PUT -H "Content-Type: application/json" \\
                                     -H "Authorization: Apikey ${GANDI_API_KEY}" \\
