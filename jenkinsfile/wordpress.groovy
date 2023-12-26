@@ -139,6 +139,33 @@ pipeline {
                 }
             }
         }
+        stage('Check TLS Certificate Status') {
+            steps {
+                script {
+                    // Definisci il nome del certificato e il namespace
+                    def certName = "cert-manager"
+                    def namespace = "wordpress"
+
+                    // Ottieni informazioni sul certificato
+                    sh "kubectl get certificate ${cert-manager} -n ${wordpress}"
+
+                    // Ottieni la data di scadenza del certificato
+                    def expiryDate = sh(script: "kubectl get certificate ${cert-manager} -n ${wordpress} -o jsonpath='{.status.notAfter}'", returnStdout: true).trim()
+                    echo "Data di scadenza del certificato: ${expiryDate}"
+
+                    // Confronta la data di scadenza con la data corrente
+                    def formatter = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
+                    def certExpiryDate = formatter.parse(expiryDate)
+                    def today = new Date()
+
+                    if (certExpiryDate.before(today)) {
+                        error "Il certificato è scaduto o sta per scadere. Verificare il rinnovo automatico tramite Cert-Manager."
+                    } else {
+                        echo "Il certificato è ancora valido."
+                    }
+                }
+            }
+        }
 
         
         //stage ('Installation de Prometheus et Grafana via Helm') {
