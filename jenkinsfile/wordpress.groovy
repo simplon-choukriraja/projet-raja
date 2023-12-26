@@ -169,7 +169,7 @@ pipeline {
         stage ('Installation de Prometheus et Grafana via Helm') {
             steps {
                 script {
-                    Installation de Prometheus et Grafana via Helm
+                    //Installation de Prometheus et Grafana via Helm
                     sh ('''
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
                     chmod 700 get_helm.sh
