@@ -198,8 +198,8 @@ pipeline {
         stage ('Installation of Prometheus and Grafana with kubernetes') {
             steps {
                 script {
-                  dir('monitoring') { 
-                      sh 'ls -a' 
+                  dir('projet-raja/monitoring') { 
+                      sh 'az aks get-credentials --name Akscluster-raja --resource-group projet'
                       sh 'kubectl apply -f grafana.yml -n projet-monitoring'
                       sh 'kubectl apply -f prometheus.yml -n projet-monitoring'
                       sh 'kubectl apply -f service-grafana.yml -n projet-monitoring'
