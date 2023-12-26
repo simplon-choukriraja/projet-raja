@@ -196,11 +196,9 @@ pipeline {
                                 sh 'kubectl apply -f service-grafana.yml'
 
                    }
-                    
                 }
-                
             } 
-            
+        }    
     }                    
  
      //post {
