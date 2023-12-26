@@ -73,7 +73,7 @@ pipeline {
             }
         }
         
-        stage('Deploy App Wordpress end MariaDB with k8s') {
+        stage('Deploy App Wordpress and MySQL with Kubernetes') {
             steps {
                 script {
                    withCredentials([string(credentialsId: 'password', variable: 'MYSQL_ROOT_PASSWORD')]) { 
