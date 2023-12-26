@@ -195,9 +195,12 @@ pipeline {
                                 sh 'kubectl apply -f prometheus.yml'
                                 sh 'kubectl apply -f service-grafana.yml'
 
-                    }
+                   }
+                    
                 }
+                
             } 
+            
     }                    
  
      //post {
