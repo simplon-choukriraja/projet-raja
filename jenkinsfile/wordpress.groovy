@@ -145,11 +145,14 @@ pipeline {
                     dir('projet-raja/kubernetes') { 
                         // Cancella il certificato esistente
                         sh 'kubectl delete -f cert-manager.yml -n wordpress'
+                        sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
 
                         // Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
                         sleep(30)
 
                         // (Opzionale) Ricrea la risorsa Certificate se necessario
+                        sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.1/cert-manager.yaml'
+                        sh 'sleep 120'
                         sh 'kubectl apply -f cert-manager.yml -n wordpress'
 
                         // Verifica lo stato del nuovo certificato
