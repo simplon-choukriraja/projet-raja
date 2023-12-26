@@ -49,7 +49,7 @@ pipeline {
              }
         }
 
-        stage('Azure Credentials for Kubernetes Cluster Access') {
+        stage('Configuration of Azure Credentials for Kubernetes Cluster Access') {
             steps {
                 script {
                     dir('kubernetes') {
@@ -142,18 +142,20 @@ pipeline {
         stage('Rinnova Certificato TLS') {
             steps {
                 script {
-                    // Cancella il certificato esistente
-                    sh 'kubectl delete -f cert-manager.yml -n wordpress'
+                    dir('projet-raja/kubernetes') { 
+                        // Cancella il certificato esistente
+                        sh 'kubectl delete -f cert-manager.yml -n wordpress'
 
-                    // Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
-                    sleep(30)
+                        // Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
+                        sleep(30)
 
-                    // (Opzionale) Ricrea la risorsa Certificate se necessario
-                    sh 'kubectl apply -f cert-manager.yml -n wordpress'
+                        // (Opzionale) Ricrea la risorsa Certificate se necessario
+                        sh 'kubectl apply -f cert-manager.yml -n wordpress'
 
-                    // Verifica lo stato del nuovo certificato
-                    // Questo è un semplice comando di esempio, potrebbe essere necessario personalizzarlo
-                    sh 'kubectl get cert-manager.yml -n wordpress'
+                        // Verifica lo stato del nuovo certificato
+                        // Questo è un semplice comando di esempio, potrebbe essere necessario personalizzarlo
+                        sh 'kubectl get cert-manager.yml -n wordpress'
+                    }
                 }
             }
         }
