@@ -120,14 +120,14 @@ pipeline {
                     //withCredentials([string(credentialsId: 'API_KEY', variable: 'GANDI_API_KEY')]) {
                             //def apiUrl = 'https://api.gandi.net/v5/livedns/domains/raja-ch.me/records/wordpress/A'
                             //def response = sh(
-                                script: """
-                                    echo "URL: ${apiUrl}"
-                                    curl -X PUT -H "Content-Type: application/json" \\
-                                    -H "Authorization: Apikey ${GANDI_API_KEY}" \\
-                                    -d '{"rrset_values": ["${TRAEFIK_IP}"]}' \\
-                                    "${apiUrl}"
-                                """,
-                                returnStatus: true
+                                //script: """
+                                    //echo "URL: ${apiUrl}"
+                                    //curl -X PUT -H "Content-Type: application/json" \\
+                                    //-H "Authorization: Apikey ${GANDI_API_KEY}" \\
+                                    //-d '{"rrset_values": ["${TRAEFIK_IP}"]}' \\
+                                    //"${apiUrl}"
+                                //""",
+                                //returnStatus: true
                             //)
                             //if (response == 0) {
                                 //echo "DNS record updated successfully"
