@@ -168,7 +168,7 @@ pipeline {
         stage('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
-                    dir('projet-raja/monitorin') { 
+                    dir('projet-raja/monitoring') { 
                         sh 'kubectl apply -f grafana.yml'
                         sh 'kubectl apply -f prometheus.yml'
                         sh 'kubectl apply -f service-grafana.yml'
