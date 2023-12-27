@@ -169,11 +169,11 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/monitoring') { 
-                        //sh 'kubectl delete -f grafana.yml'
-                        sh 'kubectl delete -f prometheus.yml'
-                        sh 'kubectl delete -f service-grafana.yml'
-                        sh 'kubectl delete -f service-prometheus.yml'
-                        //sh 'kubectl apply -f deployment-box.yml'
+                        sh 'kubectl apply -f grafana.yml'
+                        sh 'kubectl apply -f prometheus.yml'
+                        sh 'kubectl apply -f service-grafana.yml'
+                        sh 'kubectl apply -f service-prometheus.yml'
+                        sh 'kubectl apply -f deployment-box.yml'
                                              
                     }
                 }
