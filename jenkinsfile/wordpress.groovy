@@ -210,6 +210,34 @@ pipeline {
                 }
             }
         }
-    }                   
+    
+        stage('Retrieve Grafana IP') {
+            steps {
+                script {
+                    def grafanaServiceName = 'grafana-service' // Replace with the actual name of your service
+                    def grafanaIP = sh(script: "kubectl get svc ${grafanaServiceName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+
+                    if (grafanaIP == '') {
+                        error "Grafana IP address not found"
+                    }
+
+                    echo "Grafana IP address found: ${grafanaIP}"
+                }
+            }
+        }
+    }
+
+        stage('Port Forwarding Grafana') {
+            steps {
+                script {
+                    def localPort = 8080 // Choose a local port
+                    def grafanaServiceName = 'grafana-service' // Replace with the actual name of your service
+                    def grafanaIP = sh(script: "kubectl get svc ${grafanaServiceName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+
+                    sh "kubectl port-forward svc/${grafanaServiceName} ${localPort}:3000"
+                    echo "Port-forwarding activated for Grafana on localhost:${localPort}"
+                }
+            }
+        }
 }
 
