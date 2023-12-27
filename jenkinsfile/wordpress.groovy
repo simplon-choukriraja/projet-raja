@@ -169,7 +169,7 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/monitoring') { 
-                        withCredentials([string(credentialsId: 'grafanapwd', usernameVariable: 'USERNAME' variable: 'GRAFANAPWD')]) {
+                        withCredentials([usernamePassword(credentialsId: 'grafanapwd', usernameVariable: 'USERNAME' variable: 'GRAFANAPWD')]) {
                             sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/' secret-grafana.yml"
                             echo "The user is: ${USERNAME}
                         //sh 'kubectl delete -f grafana.yml'
