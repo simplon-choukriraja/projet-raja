@@ -38,42 +38,42 @@ pipeline {
             }
         }
 
-        stage('Run Terraform Commands') {
-            steps {
-                script {
-                    dir('projet-raja/terraform') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                     }
-                 }
-             }
-        }
+        //stage('Run Terraform Commands') {
+            //steps {
+                //script {
+                    //dir('projet-raja/terraform') {
+                        //sh 'terraform init'
+                        //sh 'terraform apply -auto-approve'
+                     //}
+                 //}
+             //}
+        //}
 
-        stage('Configuration of Azure Credentials for Kubernetes Cluster Access') {
-            steps {
-                script {
-                    dir('projet-raja/kubernetes') {
-                    sh 'az aks get-credentials --name Akscluster-raja --resource-group projet --overwrite-existing'
-                    }
-                 }
-             }
-        }
+        //stage('Configuration of Azure Credentials for Kubernetes Cluster Access') {
+            //steps {
+                //script {
+                    //dir('projet-raja/kubernetes') {
+                    //sh 'az aks get-credentials --name Akscluster-raja --resource-group projet --overwrite-existing'
+                    //}
+                 //}
+             //}
+        //}
         
-        stage('Implementation of Traefik Using Helm') {
-            steps {
-                script {
-                    dir('projet-raja/kubernetes') {
+        //stage('Implementation of Traefik Using Helm') {
+            //steps {
+                //script {
+                    //dir('projet-raja/kubernetes') {
                        //Add the Traefik Helm repository to the repositories 
-                      sh 'helm repo add traefik https://helm.traefik.io/traefik'
-                      sh 'helm repo update'
+                      //sh 'helm repo add traefik https://helm.traefik.io/traefik'
+                      //sh 'helm repo update'
                        //Deploy Traefik with Helm
-                      sh 'helm upgrade --install traefik traefik/traefik'
-                    }
-                }
-            }
-        }
+                      //sh 'helm upgrade --install traefik traefik/traefik'
+                    //}
+                //}
+            //}
+        //}
         
-        stage('Deploy App Wordpress and MySQL with Kubernetes') {
+        //stage('Deploy App Wordpress and MySQL with Kubernetes') {
             steps {
                 script {
                    withCredentials([string(credentialsId: 'password', variable: 'MYSQL_ROOT_PASSWORD')]) { 
