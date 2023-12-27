@@ -180,7 +180,7 @@ pipeline {
                         //sh 'kubectl get pods -n wordpress'
                         
 
-                        }
+                        //}
                     }
                 }
             }
