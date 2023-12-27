@@ -169,20 +169,22 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/monitoring') { 
-                        withCredentials([usernamePassword(credentialsId: 'grafanapwd', usernameVariable: 'USERNAME', passwordVariable: 'GRAFANAPWD')]) {
-                        //sh 'kubectl delete -f grafana.yml'
-                        //sh 'kubectl delete -f prometheus.yml'
-                        //sh 'kubectl delete -f service-grafana.yml'
-                        //sh 'kubectl delete -f service-prometheus.yml'
-                        sh 'kubectl apply -f grafana.yml'
-                        sh 'kubectl apply -f prometheus.yml'
-                        sh 'kubectl apply -f service-grafana.yml'
-                        sh 'kubectl apply -f service-prometheus.yml'
-                        sh 'kubectl get pods -n wordpress'
-                        sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/' secret-grafana.yml"
-                            echo "The user is: ${USERNAME}"
-                        
-                        }
+                        //withCredentials([usernamePassword(credentialsId: 'grafanapwd', usernameVariable: 'USERNAME', passwordVariable: 'GRAFANAPWD')]) {
+                        sh 'kubectl delete -f grafana.yml'
+                        sh 'kubectl delete -f prometheus.yml'
+                        sh 'kubectl delete -f service-grafana.yml'
+                        sh 'kubectl delete -f service-prometheus.yml'
+                        //sh 'kubectl apply -f grafana.yml'
+                        //sh 'kubectl apply -f prometheus.yml'
+                        //sh 'kubectl apply -f service-grafana.yml'
+                        //sh 'kubectl apply -f service-prometheus.yml'
+                        //sh 'kubectl get pods -n wordpress'
+                        //sh "echo ${GRAFANAPWD} > temp_pwd.txt"
+                        //sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: $(<temp_pwd.txt)/' secret-grafana.yml"
+                        //sh "rm temp_pwd.txt"
+                        //echo "The user is: ${USERNAME}"
+
+                        //}
                     }
                 }
             }
