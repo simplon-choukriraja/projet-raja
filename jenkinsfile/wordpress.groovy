@@ -186,7 +186,7 @@ pipeline {
                         // Leggi il contenuto del file temporaneo in una variabile e usa 'sed' per la sostituzione
                         sh '''
                             GRAFANAPWD=$(cat temp_pwd.txt)
-                            sed -i "s/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/" secret-grafana.yml
+                            sed -i "s/GRAFANA_PASSWORD: grafanapwd/GRAFANA_PASSWORD: ${GRAFANAPWD}/" secret-grafana.yml
                             rm temp_pwd.txt
                         '''
 
