@@ -191,7 +191,8 @@ pipeline {
                    }
                 }
             } 
-        }    
+        }  
+    }
      
 
         stage ('Installation of Prometheus and Grafana with kubernetes') {
