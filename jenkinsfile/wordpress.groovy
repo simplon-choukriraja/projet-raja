@@ -189,11 +189,13 @@ pipeline {
                             --create-namespace  
                             ''')
                                 sh 'kubectl get svc -n wordpress' 
+                      
 
                    }
                 }
             } 
         }  
+    }    
         
 }
 
