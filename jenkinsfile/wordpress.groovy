@@ -190,18 +190,18 @@ pipeline {
                                 sh 'kubectl get svc -n wordpress' 
                       
 
-                   }
                 }
-            } 
-        }  
-         stage('Port-Forwarding for Grafana/Prometheus') {
+            }
+        } 
+         
+        stage('Port-Forwarding for Grafana/Prometheus') {
             steps {
                 script {
                     sh 'kubectl port-forward svc/prometheus-grafana 3000:80 -n wordpress'
                     sh 'kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090 -n wordpress'
                 }
             } 
-         }
+        }
     }    
 }
 
