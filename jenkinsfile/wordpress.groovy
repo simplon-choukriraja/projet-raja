@@ -63,10 +63,10 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/kubernetes') {
-                       //AJOUTER LE RÉFÉRENTIEL HELM DE TRAEFIK AUX REPOSITORIES  
+                       //Add the Traefik Helm repository to the repositories 
                         sh 'helm repo add traefik https://helm.traefik.io/traefik'
                       sh 'helm repo update'
-                       //DÉPLOYER TRAEFIK AVEC HELM
+                       //Deploy Traefik with Helm
                       sh 'helm upgrade --install traefik traefik/traefik'
                     }
                 }
