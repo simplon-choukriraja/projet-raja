@@ -173,26 +173,11 @@ pipeline {
                         //sh 'kubectl delete -f prometheus.yml'
                         //sh 'kubectl delete -f service-grafana.yml'
                         //sh 'kubectl delete -f service-prometheus.yml'
-                        withCredentials([usernamePassword(credentialsId: 'grafanapwd', usernameVariable: 'USERNAME', passwordVariable: 'GRAFANAPWD')]) {
-                        sh 'kubectl apply -f grafana.yml'
-                        sh 'kubectl apply -f prometheus.yml'
-                        sh 'kubectl apply -f service-grafana.yml'
-                        sh 'kubectl apply -f service-prometheus.yml'
-                        sh 'kubectl apply -f secret-grafana.yml'
-                        sh 'kubectl get pods -n wordpress'
-                        // Scrivi il segreto in un file in modo sicuro
-                        writeFile file: 'temp_pwd.txt', text: "${GRAFANAPWD}"
-
-                        // Leggi il contenuto del file temporaneo in una variabile e usa 'sed' per la sostituzione
-                        sh '''
-                            GRAFANAPWD=$(cat temp_pwd.txt)
-                            sed -i "s/GRAFANA_PASSWORD: grafanapwd/GRAFANA_PASSWORD: ${GRAFANAPWD}/" secret-grafana.yml
-                            rm temp_pwd.txt
-                        '''
-
-                        echo "The user is: ${USERNAME}"
-
-                        }
+                        sh 'kubectl create -f grafana.yml'
+                        sh 'kubectl crate -f prometheus.yml'
+                        sh 'kubectl create -f service-grafana.yml'
+                        sh 'kubectl create -f service-prometheus.yml'
+                        
                     }
                 }
             }
