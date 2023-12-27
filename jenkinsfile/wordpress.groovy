@@ -178,6 +178,7 @@ pipeline {
                          //Adding the repository for Prometheus and Grafana, and updating
                         sh ('''
                         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+                        helm repo add grafana https://grafana.github.io/helm-charts
                         helm repo update
                         ''')
                              //Installation of a Helm Chart in a namespace projet-monitoring
@@ -187,30 +188,12 @@ pipeline {
                             --namespace wordpress \
                             --create-namespace  
                             ''')
+                                sh 'kubectl get svc -n wordpress' 
 
                    }
                 }
             } 
         }  
-
-
-          stage('Installation of Prometheus and Grafana with kubernetes') {
-            steps {
-                script {
-                  dir('projet-raja/monitoring') {
-                      sh 'az aks get-credentials --name Akscluster-raja --resource-group projet'
-                      sh 'kubectl create -f grafana.yml'
-                      sh 'kubectl create -f prometheus.yml'
-                      sh 'kubectl create -f service-grafana.yml'
-                      sh 'kubectl create -f service-prometheus.yml'
-                      sh 'kubectl get pods -n wordpress'
-                      
-                      
-                  }
-                }
-            }
-        }
-    }
         
 }
 
