@@ -64,7 +64,7 @@ pipeline {
                 script {
                     dir('projet-raja/kubernetes') {
                        //Add the Traefik Helm repository to the repositories 
-                        sh 'helm repo add traefik https://helm.traefik.io/traefik'
+                      sh 'helm repo add traefik https://helm.traefik.io/traefik'
                       sh 'helm repo update'
                        //Deploy Traefik with Helm
                       sh 'helm upgrade --install traefik traefik/traefik'
@@ -138,23 +138,23 @@ pipeline {
                 }
             }
         }
-        stage('Rinnova Certificato TLS') {
+        stage('Renewal Process for TLS Certificate using Cert-Manager in Kubernetes') {
             steps {
                 script {
                     dir('projet-raja/kubernetes') { 
-                         //Assicurati che il nome del file cert-manager.yml e il nome del certificato siano corretti
-                         //Cancella il certificato esistente
+                         //Ensure that the cert-manager.yml file name and the certificate name are correct
+                         //Delete the existing certificate
                         sh 'kubectl delete -f cert-manager.yml -n wordpress'
-                         //Aspetta un po' per dare tempo a cert-manager di rilevare la cancellazione
+                         //Wait a while to give cert-manager time to detect the deletion
                         sleep(30)
 
-                         //Ricrea la risorsa Certificate
+                         //Recreate the Certificate resource 
                         sh 'kubectl apply -f cert-manager.yml -n wordpress'
 
-                        // Aspetta per il rinnovo/ricreazione del certificato
+                        //Wait for the renewal/recreation of the certificate
                         sleep(60)
 
-                        // Verifica lo stato del nuovo certificato
+                        //Check the status of the new certificate
                         sh 'kubectl get certificates -n wordpress'
                         sh 'kubectl describe certificate tls-cert-ingress-http -n wordpress'
 
