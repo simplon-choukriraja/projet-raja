@@ -105,7 +105,7 @@ pipeline {
                     def TRAEFIK_IP = sh(script: "kubectl get svc traefik -n default -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
                     echo "L'indirizzo IP di Traefik è: ${TRAEFIK_IP}"
                         
-                    // Salva l'IP in un file temporaneo per utilizzarlo nello stage successivo
+                    // Save the IP address to a temporary file for use in the next stage
                     writeFile file: 'traefik_ip.txt', text: TRAEFIK_IP
                         
                 }
