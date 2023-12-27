@@ -2,7 +2,7 @@ pipeline {
     agent any 
     
     environment {
-        
+    
         MYSQL_ROOT_PASSWORD = credentials('password')
         GANDI_API_KEY = credentials('API_KEY')
         TRAEFIK_IP = 'traefikIP'
