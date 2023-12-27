@@ -210,21 +210,6 @@ pipeline {
                 }
             }
         }
-    
-        stage('Retrieve Grafana IP') {
-            steps {
-                script {
-                    def grafanaServiceName = 'grafana-service' // Replace with the actual name of your service
-                    def grafanaIP = sh(script: "kubectl get svc grafana -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-
-                    if (grafanaIP == '') {
-                        error "Grafana IP address not found"
-                    }
-
-                    echo "Grafana IP address found: ${grafanaIP}"
-                }
-            }
-        }
-    }   
+        
 }
 
