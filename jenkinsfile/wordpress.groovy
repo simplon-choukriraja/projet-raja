@@ -168,7 +168,6 @@ pipeline {
         stage('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
-                  dir('raja-projet/monitoring') { 
                     //Installation of Helm
                     sh ('''
                     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -195,7 +194,14 @@ pipeline {
                 }
             } 
         }  
+         stage('Port-Forwarding for Grafana/Prometheus') {
+            steps {
+                script {
+                    sh 'kubectl port-forward svc/prometheus-grafana 3000:80 -n wordpress'
+                    sh 'kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090 -n wordpress'
+                }
+            } 
+         }
     }    
-        
 }
 
