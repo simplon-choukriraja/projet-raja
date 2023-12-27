@@ -182,7 +182,7 @@ pipeline {
                         //sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/' secret-grafana.yml"
                             //echo "The user is: ${USERNAME}"
                         
-                        }
+                        //}
                     }
                 }
             }
