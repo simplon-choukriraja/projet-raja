@@ -38,24 +38,9 @@ data:
   prometheus.yml: |
     global:
       scrape_interval: 15s
-    scrape_configs:
-      - job_name: 'prometheus'
-        static_configs:
-          - targets: ['prometheus-service:9090']  # Sostituisci con il nome corretto del servizio di Prometheus
 
-      - job_name: 'blackbox'
-        metrics_path: /probe
-        params:
-          module: [http_2xx_example]  # Nome del modulo configurato nella ConfigMap di Blackbox Exporter
-        static_configs:
-          - targets:
-            - http://wordpress.raja-ch.me  # Sostituisci con gli endpoint che desideri monitorare
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: __param_target
-          - source_labels: [__param_target]
-            target_label: instance
-          - target_label: __address__
-            replacement: blackbox-exporter:9115  # Indirizzo di Blackbox Exporter
-
+scrape_configs:
+  - job_name: 'wordpress'
+    static_configs:
+      - targets: ['wordpress.raja-ch.me']
           
