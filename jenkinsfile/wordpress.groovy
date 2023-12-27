@@ -225,17 +225,6 @@ pipeline {
                 }
             }
         }
-    }
-
-        stage('Port Forwarding Grafana') {
-            steps {
-                script {
-                    def grafanaServiceName = 'grafana' // Replace with the actual name of your service
-                    def grafanaIP = sh(script: "kubectl get svc grafana -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-
-                }
-            }
-        }
-    
+    }   
 }
 
