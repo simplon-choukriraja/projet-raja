@@ -165,7 +165,7 @@ pipeline {
         }
 
         
-        stage('Installation of Prometheus and Grafana via Helm') {
+        stage('Installation of Prometheus and Grafana via K8s') {
             steps {
                 script {
                     dir('projet-raja/monitoring') { 
