@@ -42,5 +42,7 @@ data:
       - job_name: 'wordpress'
         static_configs:
           - targets: ['wordpress.raja-ch.me']
+        scheme: http   
+        insecure_skip_verify: true 
 
           
