@@ -168,42 +168,16 @@ pipeline {
         stage('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
-                    //Installation of Helm
-                    sh ('''
-                    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-                    chmod 700 get_helm.sh
-                    ./get_helm.sh
-                    ''')
-                         //Adding the repository for Prometheus and Grafana, and updating
-                        sh ('''
-                        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-                        helm repo add grafana https://grafana.github.io/helm-charts
-                        helm repo update
-                        ''')
-                             //Installation of a Helm Chart in a namespace projet-monitoring
-                            sh ('''
-                            helm install prometheus \
-                            prometheus-community/kube-prometheus-stack \
-                            --namespace wordpress \
-                            --create-namespace  
-                            ''')
-                            
-                      
-
+                    dir('projet-raja/monitorin') { 
+                        sh 'kubectl apply -f grafana.yml'
+                        sh 'kubectl apply -f prometheus.yml'
+                        sh 'kubectl apply -f service-grafana.yml'
+                        sh 'kubectl apply -f service-prometheus'
+                   
+                    }
                 }
             }
         } 
-         
-        stage('Port-Forwarding for Grafana/Prometheus') {
-            steps {
-                script {
-                    sh 'kubectl get pods -n wordpress'
-                    sh 'kubectl port-forward svc/prometheus-grafana 3000:80 -n wordpress'
-                    sh 'kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090 -n wordpress'
-                    
-                }
-            } 
-        }
     }    
 }
 
