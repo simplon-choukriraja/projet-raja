@@ -10,7 +10,7 @@ spec:
       app: prometheus
   template:
     metadata:
-      labels:
+      labels: 
         app: prometheus
     spec:
       containers:
