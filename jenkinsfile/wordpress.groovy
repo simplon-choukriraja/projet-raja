@@ -179,13 +179,15 @@ pipeline {
                         sh 'kubectl apply -f service-grafana.yml'
                         sh 'kubectl apply -f service-prometheus.yml'
                         sh 'kubectl get pods -n wordpress'
-                        writeFile file: 'temp_pwd.txt', text: GRAFANAPWD
+                        // Scrivi il segreto in un file in modo sicuro
+                        writeFile file: 'temp_pwd.txt', text: "${GRAFANAPWD}"
 
-                        // Usa 'sed' senza interpolare il segreto direttamente
-                        sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: ' secret-grafana.yml < temp_pwd.txt"
-
-                        // Rimuovi il file temporaneo per la sicurezza
-                        sh "rm temp_pwd.txt"
+                        // Leggi il contenuto del file temporaneo in una variabile e usa 'sed' per la sostituzione
+                        sh '''
+                        GRAFANAPWD=$(cat temp_pwd.txt)
+                        sed -i "s/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/" secret-grafana.yml
+                        rm temp_pwd.txt
+                        '''
 
                         echo "The user is: ${USERNAME}"
 
