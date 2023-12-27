@@ -170,7 +170,7 @@ pipeline {
                 script {
                     dir('projet-raja/monitoring') { 
                         sh 'kubectl create -f grafana.yml'
-                        sh 'kubectl crate -f prometheus.yml'
+                        sh 'kubectl create -f prometheus.yml'
                         sh 'kubectl create -f service-grafana.yml'
                         sh 'kubectl create -f service-prometheus.yml'
                                              
