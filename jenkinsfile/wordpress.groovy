@@ -204,6 +204,7 @@ pipeline {
                       //sh 'kubectl create -f service-grafana.yml'
                       //sh 'kubectl create -f service-prometheus.yml'
                       sh 'kubectl get pods -n wordpress'
+                      sh 'kubectl get describe pod grafana-cd86c7667-8qzgk'
                       
                   }
                 }
