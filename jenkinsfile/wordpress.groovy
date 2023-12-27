@@ -175,6 +175,7 @@ pipeline {
                         //sh 'kubectl apply -f service-prometheus.yml'
                         //sh 'kubectl apply -f deployment-box.yml'
                         sh 'kubectl get pod -n wordpress'
+                        sh 'kubectl describe pod blackbox-exporter-677cd77547-zlqhs -n wordpress'
                                              
                     }
                 }
