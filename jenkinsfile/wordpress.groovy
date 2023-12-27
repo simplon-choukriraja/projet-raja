@@ -181,7 +181,7 @@ pipeline {
                         //sh 'kubectl apply -f service-prometheus.yml'
                         //sh 'kubectl get pods -n wordpress'
                         
-                        }
+                        //}
                     }
                 }
             }
