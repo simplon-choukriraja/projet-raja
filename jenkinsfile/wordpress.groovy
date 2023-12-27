@@ -180,7 +180,7 @@ pipeline {
                         sh 'kubectl apply -f service-prometheus.yml'
                         sh 'kubectl get pods -n wordpress'
                         sh "echo ${GRAFANAPWD} > temp_pwd.txt"
-                        sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: $(<temp_pwd.txt)/' secret-grafana.yml"
+                        sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: '\$(<temp_pwd.txt)' secret-grafana.yml"
                         sh "rm temp_pwd.txt"
                         echo "The user is: ${USERNAME}"
 
