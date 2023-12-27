@@ -169,17 +169,17 @@ pipeline {
             steps {
                 script {
                     dir('projet-raja/monitoring') { 
-                        withCredentials([string(credentialsId: 'grafana', variable: 'GRAFANA')]) {
-                            sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/'"
-                        //sh 'kubectl delete -f grafana.yml'
-                        //sh 'kubectl delete -f prometheus.yml'
-                        //sh 'kubectl delete -f service-grafana.yml'
-                        //sh 'kubectl delete -f service-prometheus.yml'
-                        sh 'kubectl apply -f grafana.yml'
-                        sh 'kubectl apply -f prometheus.yml'
-                        sh 'kubectl apply -f service-grafana.yml'
-                        sh 'kubectl apply -f service-prometheus.yml'
-                        sh 'kubectl get pods -n wordpress'
+                        //withCredentials([string(credentialsId: 'grafana', variable: 'GRAFANA')]) {
+                            //sh "sed -i 's/GRAFANAPWD: grafanapwd/GRAFANAPWD: ${GRAFANAPWD}/' secret-grafana.yml"
+                        sh 'kubectl delete -f grafana.yml'
+                        sh 'kubectl delete -f prometheus.yml'
+                        sh 'kubectl delete -f service-grafana.yml'
+                        sh 'kubectl delete -f service-prometheus.yml'
+                        //sh 'kubectl apply -f grafana.yml'
+                        //sh 'kubectl apply -f prometheus.yml'
+                        //sh 'kubectl apply -f service-grafana.yml'
+                        //sh 'kubectl apply -f service-prometheus.yml'
+                        //sh 'kubectl get pods -n wordpress'
                         
                         }
                     }
