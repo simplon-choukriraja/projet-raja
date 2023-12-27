@@ -195,7 +195,7 @@ pipeline {
     }
      
 
-        stage ('Installation of Prometheus and Grafana with kubernetes') {
+         stage ('Installation of Prometheus and Grafana with kubernetes') {
             steps {
                 script {
                   dir('projet-raja/monitoring') {
@@ -205,7 +205,7 @@ pipeline {
                       sh 'kubectl create -f service-grafana.yml'
                       sh 'kubectl create -f service-prometheus.yml'
                       sh 'kubectl get pods -n wordpress'
-                      sh 'kubectl describe pod grafana-cd86c7667-8qzgk'
+                      
                       
                   }
                 }
