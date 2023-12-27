@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/loki
+        image: grafana/grafana:latest
         ports:
         - containerPort: 3000
