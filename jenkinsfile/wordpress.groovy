@@ -187,7 +187,7 @@ pipeline {
                             --namespace wordpress \
                             --create-namespace  
                             ''')
-                                sh 'kubectl get svc -n wordpress' 
+                            
                       
 
                 }
@@ -197,8 +197,10 @@ pipeline {
         stage('Port-Forwarding for Grafana/Prometheus') {
             steps {
                 script {
+                    sh 'kubectl get pods -n wordpress
                     sh 'kubectl port-forward svc/prometheus-grafana 3000:80 -n wordpress'
                     sh 'kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090 -n wordpress'
+                    
                 }
             } 
         }
