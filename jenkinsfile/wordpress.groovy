@@ -165,7 +165,7 @@ pipeline {
         }
 
         
-        stage ('Installation of Prometheus and Grafana via Helm') {
+        stage('Installation of Prometheus and Grafana via Helm') {
             steps {
                 script {
                   dir('raja-projet/monitoring') { 
@@ -195,7 +195,7 @@ pipeline {
     }
      
 
-         stage ('Installation of Prometheus and Grafana with kubernetes') {
+         stage('Installation of Prometheus and Grafana with kubernetes') {
             steps {
                 script {
                   dir('projet-raja/monitoring') {
