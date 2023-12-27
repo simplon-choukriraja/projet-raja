@@ -132,12 +132,12 @@ pipeline {
                                 //echo "DNS record updated successfully"
                             //} else {
                                 //error "Failed to update DNS record on Gandi"
-                            }
+                            //}
                     
-                    }    
-                }
-            }
-        }
+                    //}    
+                //}
+            //}
+        //}
         //stage('Rinnova Certificato TLS') {
             //steps {
                 //script {
