@@ -18,3 +18,11 @@ spec:
           image: bitnami/prometheus
           ports:
             - containerPort: 9090
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: prometheus-config
