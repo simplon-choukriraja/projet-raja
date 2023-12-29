@@ -112,7 +112,7 @@ pipeline {
             }
         } 
 
-        stage('Mettre à jour l enregistrement DNS sur Gandi') {
+        stage('Update the DNS record on Gandi') {
             steps {
                 script {
                     def TRAEFIK_IP= readFile('traefik_ip.txt').trim()
